@@ -14,7 +14,7 @@ $marker-size: 30px;
   left: 50%;
   top: 50%;
   margin: -20px 0 0 -20px;
-  z-index: 1000000;
+  z-index: 0;
 }
 .pin:after { /* Read about Pseudo-Elements: https://www.smashingmagazine.com/2011/07/learning-to-use-the-before-and-after-pseudo-elements-in-css */
   content: "";
@@ -36,7 +36,7 @@ $marker-size: 30px;
   left: 50%;
   top: 50%;
   margin: -20px 0 0 -20px;
-  z-index: 999999;
+  z-index: 0;
 }
 
 .pulse {

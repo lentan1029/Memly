@@ -16,7 +16,7 @@ which is where index.html points to
   left: 50%;
   top: 50%;
   margin: -20px 0 0 -20px;
-  z-index: 1000000; }
+  z-index: 0; }
 
 .pin:after {
   /* Read about Pseudo-Elements: https://www.smashingmagazine.com/2011/07/learning-to-use-the-before-and-after-pseudo-elements-in-css */
@@ -29,7 +29,6 @@ which is where index.html points to
   border-radius: 50%; }
 
 .ring {
-  background-color: #f6f6f6;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -39,7 +38,7 @@ which is where index.html points to
   left: 50%;
   top: 50%;
   margin: -20px 0 0 -20px;
-  z-index: 999999; }
+  z-index: 0; }
 
 .pulse {
   background: #d6d4d4;
@@ -167,7 +166,7 @@ which is where index.html points to
   width: 100%;
   z-index: -9999999; }
 
-.iw-comment:hover {
+.iw-comment {
   position: absolute;
   left: 8px;
   bottom: 12px;
@@ -533,6 +532,28 @@ ul {
   border-radius: 5px;
   border: 1px solid #e1e8ed; }
 
+#myProfile {
+  width: 80%;
+  margin-top: 5%;
+  margin-left: 8%; }
+
+#profilePhotoContainer {
+  display: block;
+  border-radius: 10px;
+  border: 1px solid white;
+  width: 20%;
+  margin: 1.655%; }
+
+#profilePhotoWrapper {
+  width: 0;
+  padding-bottom: 100%;
+  overflow: hidden; }
+
+#profileBioContainer {
+  display: inline;
+  width: 10%;
+  margin: 0; }
+
 .oneMemly {
   display: block;
   border-radius: 3px;
@@ -580,7 +601,6 @@ ul {
 
 .editProfileButton {
   margin-left: 6%;
-  margin-bottom: 2%;
   border: 1px solid #15aeec;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -613,48 +633,9 @@ ul {
   background-image: linear-gradient(to bottom, #1ab0ec, #3f9feb);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#1ab0ec, endColorstr=#3f9feb); }
 
+#ProfilePhotoUpload {
+  margin-top: 5%; }
 
-    /* ===== style for uploadphoto ====== */
-.imageuploadcontain {
-  height: 100%;
-  width: 100%;
-}
-
-.innerimageupload {
-  height: 100%;
-  width: 80%;
-  background-color: #f6f6f6;
-  margin-left: 10%;
-  margin-top: 10%;
-}
-
-.innerinnerimageupload {
-  margin: 3% 3% 3% 3%;
-}
-
-.innerinnerimageuploadh3 {
-  padding-top: 3%;
-}
-
-.loadingscreen {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #f6f6f6;
-  flex-direction: row;
-}
-
-.ringloading {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 4px solid #50E3C2;
-  transform: rotate(-45deg);
-  z-index: 999999; 
-  background-color: #f6f6f6;
-  box-shadow: 0 0px 4px rgba(120, 120, 120, 0.6);
-}
-
+#uploadedPhoto {
+  padding-top: 1%;
+  padding-left: 1%; }
