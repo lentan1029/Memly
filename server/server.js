@@ -83,6 +83,10 @@ app.get('/auth/facebook/callback',
 //     next();
 //   }
 // };
+//check login for rerouting on client side 
+app.get('/isloggedin', helper.isLoggedIn, function(req,res){
+  res.sendStatus(202);
+})
 
 //not for facbeook auth.. this is for profile button?
 app.get('/user/profile/', helper.isLoggedIn, function(req, res) {

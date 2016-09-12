@@ -21574,7 +21574,7 @@
 	    _react2.default.createElement(_reactRouter.Route, { path: '/logout', component: _container2.default }),
 	    _react2.default.createElement(
 	      _reactRouter.Route,
-	      { path: '/user/profile', component: _ProfileContainer2.default, onEnter: checkAuth },
+	      { path: '/user/profile', component: _ProfileContainer2.default },
 	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _MyMemlysContainer2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/likedmemlys', component: _LikedMemlysContainer2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/edit', component: _EditProfileContainer2.default })
@@ -21585,12 +21585,10 @@
 
 	// you can use an onEnter hook before entering routes to check if user is authorized. (i.e. can check the state logged in or not)
 	// this is a good way to do client side route protection. Without this, although they may not be able to see any of their data, anyone can still enter /user/profile route
-	function checkAuth(nextState, replace) {
+	function checkAuth(nextState, replace, callback) {
 	  //the fact that we have been rerouted by server to here means that we are authorized to be here
 	  //but what if someone manually enters.. 'https:localhost:3000/user/profile'?
 	  //**** UNCOMMENT LINE BELOW TO SEE HOW onENTER HOOK WORKS ****//
-
-	  // replace('/');
 	}
 
 	exports.default = routes;
@@ -31393,6 +31391,22 @@
 
 	  _createClass(ProfileContainer, [{
 	    key: 'DateParser',
+
+
+	    // constructor(props, context){
+	    //   super(props, context);
+	    // //   this.state = {
+	    // //     //some hardcoded user data for test purposes
+	    // //     user: {name: 'John Doe', bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", city:'San Francisco', photo: 'https://scontent.fsnc1-3.fna.fbcdn.net/t31.0-8/11232282_10153700263958254_6749315989191466632_o.jpg', myMemlys: [{url: 'https://scontent.fsnc1-3.fna.fbcdn.net/t31.0-8/10265664_10152863685678254_2720788227246186432_o.jpg' , location: 'New York'}, {url: 'https://scontent.fsnc1-3.fna.fbcdn.net/v/t1.0-9/11692782_10153548376573254_4076114351065122781_n.jpg?oh=98d0d35e39a1b376c806bee7bb47f075&oe=584175A8', location: 'San Francisco'}], likedMemlys: [{url: 'https://scontent.fsnc1-3.fna.fbcdn.net/t31.0-8/13938311_1131762946908530_6242907422971776062_o.jpg', location: 'San Jose'}, {url: 'https://scontent.fsnc1-3.fna.fbcdn.net/v/t1.0-9/14225455_1107962689239467_1782382838638034127_n.jpg?oh=f36a23bd6873261d9569822fc59db40e&oe=58541FE4', location: 'Napa'}]},
+	    // //     userFacebook: {},
+	    // //     memlyCount: 99
+	    // //   }
+	    //   if(!props.isLoggedIn){
+	    //     context.router.push('/');
+	    //   }
+	    // }
+
+
 	    value: function DateParser(date) {
 	      console.log('checking date format', date);
 	      var dateArray = date.split('/');
@@ -31429,17 +31443,6 @@
 	      var dateFormatted = month + ' ' + day + ', ' + year;
 	      return dateFormatted;
 	    }
-
-	    // constructor(props){
-	    //   super(props);
-	    //   this.state = {
-	    //     //some hardcoded user data for test purposes
-	    //     user: {name: 'John Doe', bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", city:'San Francisco', photo: 'https://scontent.fsnc1-3.fna.fbcdn.net/t31.0-8/11232282_10153700263958254_6749315989191466632_o.jpg', myMemlys: [{url: 'https://scontent.fsnc1-3.fna.fbcdn.net/t31.0-8/10265664_10152863685678254_2720788227246186432_o.jpg' , location: 'New York'}, {url: 'https://scontent.fsnc1-3.fna.fbcdn.net/v/t1.0-9/11692782_10153548376573254_4076114351065122781_n.jpg?oh=98d0d35e39a1b376c806bee7bb47f075&oe=584175A8', location: 'San Francisco'}], likedMemlys: [{url: 'https://scontent.fsnc1-3.fna.fbcdn.net/t31.0-8/13938311_1131762946908530_6242907422971776062_o.jpg', location: 'San Jose'}, {url: 'https://scontent.fsnc1-3.fna.fbcdn.net/v/t1.0-9/14225455_1107962689239467_1782382838638034127_n.jpg?oh=f36a23bd6873261d9569822fc59db40e&oe=58541FE4', location: 'Napa'}]},
-	    //     userFacebook: {},
-	    //     memlyCount: 99
-	    //   }
-	    // }
-
 	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
@@ -31536,6 +31539,10 @@
 	    birthday: state.userReducer.birthday
 	  };
 	}
+
+	ProfileContainer.contextTypes = {
+	  router: _react.PropTypes.object.isRequired
+	};
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ProfileContainer);
 
