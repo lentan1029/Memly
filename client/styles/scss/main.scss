@@ -384,3 +384,46 @@ ul {
   padding-left: 1%;
 }
 
+.imageuploadcontain {
+  height: 100%;
+  width: 100%;
+}
+
+.innerimageupload {
+  height: 100%;
+  width: 80%;
+  background-color: #f6f6f6;
+  margin-left: 10%;
+  margin-top: 10%;
+}
+
+.innerinnerimageupload {
+  margin: 3% 3% 3% 3%;
+}
+
+.innerinnerimageuploadh3 {
+  padding-top: 3%;
+}
+
+.loadingscreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #f6f6f6;
+  flex-direction: row;
+}
+
+.ringloading {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 4px solid #50E3C2;
+  transform: rotate(-45deg);
+  z-index: 999999; 
+  background-color: #f6f6f6;
+  box-shadow: 0 0px 4px rgba(120, 120, 120, 0.6);
+}
+
