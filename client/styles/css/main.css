@@ -81,7 +81,7 @@ which is where index.html points to
 
 .hover:hover * {
   animation-fill-mode: forwards;
-  animation-duration: 1s; }
+  animation-duration: 0.5s; }
 
 .hover:hover .marker {
   animation-name: hover; }
@@ -91,35 +91,37 @@ which is where index.html points to
 
 .hover:hover .iw {
   animation-name: window-expand; }
-  .hover:hover .iw .iw-top {
-    animation-name: top-expand; }
-  .hover:hover .iw .iw-header {
-    animation-name: header-expand; }
+  .hover:hover .iw .iw-avatar, .hover:hover .iw .iw-like-image, .hover:hover .iw .iw-dislike-image {
+    animation-name: image-appear; }
+  .hover:hover .iw .iw-name, .hover:hover .iw .iw-place, .hover:hover .iw .iw-time {
+    animation-name: white-text-appear; }
+  .hover:hover .iw .iw-comment {
+    animation-name: black-text-appear; }
+  .hover:hover .iw .iw-layers {
+    animation-name: layers-expand; }
+  .hover:hover .iw .iw-header, .hover:hover .iw .iw-footer {
+    animation-name: front-move; }
   .hover:hover .iw .iw-media {
     animation-name: media-expand; }
-  .hover:hover .iw .iw-footer {
-    animation-name: footer-expand; }
 
 .iw {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
   position: absolute;
-  top: -17.5vw;
-  left: -10vw;
-  height: 14vw;
-  width: 20vw;
-  box-shadow: 0 0px 4px rgba(120, 120, 120, 0.6);
-  background-color: white;
-  border: none;
-  border-radius: 5px;
-  margin: 0;
-  padding: 5px; }
+  left: 50%;
+  top: 50%;
+  margin: -20px 0 0 -20px;
+  z-index: -999999;
+  background-color: #50E3C2; }
 
 .iw-media {
-  border-radius: 2px 2px 2px 2px;
+  border-radius: 30px;
   height: 100%;
   width: 100%;
   z-index: 0; }
 
-.iw-top {
+.iw-layers {
   height: 100%;
   width: 100%; }
 
@@ -137,7 +139,10 @@ which is where index.html points to
   width: 40px;
   height: 40px;
   border: 2px solid white;
-  border-radius: 2px; }
+  border-radius: 2px;
+  opacity: 0.0;
+  filter: alpha(opacity=0);
+  /* For IE8 and earlier */ }
 
 .iw-name {
   position: absolute;
@@ -145,19 +150,19 @@ which is where index.html points to
   left: 54px;
   font-weight: 300;
   font-size: 16px;
-  color: white; }
+  color: rgba(255, 255, 255, 0); }
 
 .iw-place {
   position: absolute;
   top: 30px;
   left: 54px;
-  color: white;
+  color: rgba(255, 255, 255, 0);
   font-size: 12px;
   font-weight: 300; }
 
 .iw-footer {
   position: absolute;
-  bottom: 34px;
+  bottom: 38px;
   left: 0;
   width: 100%;
   z-index: -9999999; }
@@ -168,13 +173,14 @@ which is where index.html points to
   bottom: 12px;
   font-size: 12px;
   font-weight: 400;
-  width: 100%; }
+  width: 100%;
+  color: transparent; }
 
 .iw-pane {
   position: absolute;
   bottom: 10px;
-  left: 4px;
-  width: 30%;
+  left: 8px;
+  width: 25%;
   display: flex;
   align-items: center;
   justify-content: space-around; }
@@ -193,44 +199,82 @@ which is where index.html points to
   justify-content: space-around; }
 
 .iw-like-image {
-  height: 10px; }
+  height: 10px;
+  opacity: 0.0;
+  filter: alpha(opacity=0);
+  /* For IE8 and earlier */ }
 
 .iw-dislike-image {
-  height: 10px; }
+  height: 10px;
+  opacity: 0.0;
+  filter: alpha(opacity=0);
+  /* For IE8 and earlier */ }
 
 .iw-time {
   position: absolute;
   right: 10px;
   bottom: 7px;
   font-size: 10px;
-  color: white;
+  color: rgba(255, 255, 255, 0);
   float: right; }
 
 @keyframes window-expand {
-  0% { }
+  0% {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -20px 0 0 -20px;
+    z-index: -999999; }
+  20% {
+    box-shadow: 0 0px 4px rgba(120, 120, 120, 0.6); }
   100% {
-    top: -23.625vw;
-    left: -12.5vw;
-    height: 21vw;
-    width: 25vw; } }
+    top: -212.625px;
+    left: -112.5px;
+    height: 189px;
+    width: 225px;
+    background-color: white;
+    border-radius: 4px;
+    padding: 5px;
+    box-shadow: 0 0px 4px rgba(120, 120, 120, 0.6);
+    z-index: 999999; } }
 
 @keyframes media-expand {
-  0% { }
+  0% {
+    border-radius: 30px; }
   100% {
     border-radius: 2px 2px 0px 0px; } }
 
-@keyframes top-expand {
+@keyframes layers-expand {
   0% { }
   100% {
     height: 80%; } }
 
-@keyframes header-expand {
+@keyframes image-appear {
   0% {
-    z-index: -9999999; }
+    opacity: 0.0;
+    filter: alpha(opacity=0);
+    /* For IE8 and earlier */ }
   100% {
-    z-index: 9999999; } }
+    opacity: 1.0;
+    filter: alpha(opacity=100);
+    /* For IE8 and earlier */ } }
 
-@keyframes footer-expand {
+@keyframes white-text-appear {
+  0% {
+    color: rgba(255, 255, 255, 0); }
+  100% {
+    color: white; } }
+
+@keyframes black-text-appear {
+  0% {
+    color: transparent; }
+  100% {
+    color: black; } }
+
+@keyframes front-move {
   0% {
     z-index: -9999999; }
   100% {
@@ -322,7 +366,8 @@ ul {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0; }
+  bottom: 0;
+  z-index: 0; }
 
 #profilePhoto {
   border-radius: 1%;

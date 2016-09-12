@@ -58812,50 +58812,54 @@
 	    { className: 'iw' },
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'iw-top' },
+	      { className: 'iw-layers' },
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'iw-header' },
-	        _react2.default.createElement('img', { className: 'iw-avatar', src: props.user.avatarUrl }),
+	        { className: 'iw-overlay' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'iw-name' },
-	          props.user.name
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'iw-place' },
-	          props.place
-	        )
-	      ),
-	      _react2.default.createElement('img', { className: 'iw-media', src: props.media.url }),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'iw-footer' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'iw-pane' },
+	          { className: 'iw-header' },
+	          _react2.default.createElement('img', { className: 'iw-avatar', src: props.user.avatarUrl }),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'iw-like-button', onClick: function onClick(e) {
-	                return props.handleLike(e);
-	              } },
-	            _react2.default.createElement('img', { className: 'iw-like-image', value: props.id, alt: props.media.url, src: '../../../../images/icons/heart/heart@2x.png' })
+	            { className: 'iw-name' },
+	            props.user.name
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'iw-dislike-button', onClick: function onClick(e) {
-	                return props.handleDislike(e);
-	              } },
-	            _react2.default.createElement('img', { className: 'iw-dislike-image', value: props.id, alt: props.media.url, src: '../../../../images/icons/dislike/dislike@2x.png' })
+	            { className: 'iw-place' },
+	            props.place
 	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'iw-time' },
-	          (0, _infowindowUtils.calculateSince)(props.media.timestamp)
+	          { className: 'iw-footer' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'iw-pane' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'iw-like-button', onClick: function onClick(e) {
+	                  return props.handleLike(e);
+	                } },
+	              _react2.default.createElement('img', { className: 'iw-like-image', value: props.id, alt: props.media.url, src: '../../../../images/icons/heart/heart@2x.png' })
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'iw-dislike-button', onClick: function onClick(e) {
+	                  return props.handleDislike(e);
+	                } },
+	              _react2.default.createElement('img', { className: 'iw-dislike-image', value: props.id, alt: props.media.url, src: '../../../../images/icons/dislike/dislike@2x.png' })
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'iw-time' },
+	            (0, _infowindowUtils.calculateSince)(props.media.timestamp)
+	          )
 	        )
-	      )
+	      ),
+	      _react2.default.createElement('img', { className: 'iw-media', src: props.media.url })
 	    ),
 	    _react2.default.createElement(
 	      'div',
