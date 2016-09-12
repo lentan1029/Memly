@@ -1,25 +1,44 @@
 import React from 'react'
+import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap'
 
 const ImageUpload = ({imagePreviewUrl, handleSubmit, handleImageChange, handlePlaceChange, handleCommentChange}) => {
   // let {imagePreviewUrl} = this.state;
   let $imagePreview = null;
   if (imagePreviewUrl !== '') {
-    $imagePreview = (<img src={imagePreviewUrl} />);
+    $imagePreview = (<img  style={{marginTop: '2%'}} className='img-rounded' height='30%' width='30%' src={imagePreviewUrl} />);
   } else {
     $imagePreview = (<div className="previewText">Preview image</div>);
   }
 
   return (
-    <div className="previewComponent">
-      <form onSubmit={(e)=>handleSubmit(e)}>
-        <div><input className="fileInput" type="file" name="photo" onChange={(e)=>handleImageChange(e)} /></div>
-        <div>Tag place: <input className="placeInput" type="text" name="place" onChange={(e)=>handlePlaceChange(e)}/></div>
-        <div>Your comment: <input className="commentInput" type="text" name="comment" onChange={(e)=>handleCommentChange(e)}/></div>
-        <div><button className="submitButton" type="submit" onClick={(e)=>handleSubmit(e)}>Upload Image</button></div>
-      </form>
-      <div className="imagePreview">{$imagePreview}</div>
+    <div className='imageuploadcontain'>
+    <div className='innerimageupload'>
+    <div className='innerinnerimageupload'>
+    <div className='innerinnerimageuploadh3'><h3>New Memly</h3></div>
+    <div className='innerinnerimageuploadform'><form onSubmit={(e)=>handleSubmit(e)}>
+      <FormGroup id='formControlsText' onChange={(e)=>handlePlaceChange(e)}>
+        <ControlLabel>Tag Place:</ControlLabel>
+        <FormControl type='text'/>
+      </FormGroup>
+      
+      <FormGroup id='formControlsText' onChange={(e)=>handleCommentChange(e)}>
+        <ControlLabel>Comment:</ControlLabel>
+        <FormControl type='text'/>
+      </FormGroup>
+
+      <FormGroup controlId='formControlsFile' onChange={(e)=>handleImageChange(e)}>
+        <ControlLabel>Upload Photo:</ControlLabel>
+        <FormControl type='file'/>
+      </FormGroup>
+       <Button type="submit">
+          Submit
+      </Button>
+    </form></div>
+    <div className="imagePreview ">{$imagePreview}</div>
     </div>
-  )
+    </div>
+    </div>
+  );
 }
 
 export default ImageUpload

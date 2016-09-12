@@ -79,6 +79,7 @@ which is where index.html points to
   animation-duration: 1s; }
 
 .hover:hover * {
+  z-index: 999999; /* bring hover infowindow up to the top */
   animation-fill-mode: forwards;
   animation-duration: 1s; }
 
@@ -552,3 +553,26 @@ ul {
   background-image: -o-linear-gradient(top, #1ab0ec, #3f9feb);
   background-image: linear-gradient(to bottom, #1ab0ec, #3f9feb);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#1ab0ec, endColorstr=#3f9feb); }
+
+  /* ===== style for uploadphoto ====== */
+.imageuploadcontain {
+  height: 100%;
+  width: 100%;
+}
+
+.innerimageupload {
+  height: 100%;
+  width: 80%;
+  background-color: #f6f6f6;
+  margin-left: 10%;
+  margin-top: 10%;
+}
+
+.innerinnerimageupload {
+  margin: 3% 3% 3% 3%;
+}
+
+.innerinnerimageuploadh3 {
+  padding-top: 3%;
+  /* ===== end style for uploadphoto ==== */
+}
