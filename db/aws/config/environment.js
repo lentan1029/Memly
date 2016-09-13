@@ -1,4 +1,4 @@
 module.exports = {
-	bucket: 'memly',
-	region: 'us-west-1'
+  bucket: 'memly',
+  region: 'us-west-1'
 };

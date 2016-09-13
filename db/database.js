@@ -28,9 +28,9 @@ var storage = multer.diskStorage({
   },
   // Randomize file name using below code
   filename: function(req, file, cb) {
-  	crypto.pseudoRandomBytes(16, function (err, raw) {
-  	  cb(null, raw.toString('hex') + Date.now() + '.' + mime.extension(file.mimetype));
-  	});
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+      cb(null, raw.toString('hex') + Date.now() + '.' + mime.extension(file.mimetype));
+    });
   }
 });
 var upload = multer({ storage: storage });
@@ -38,15 +38,15 @@ var upload = multer({ storage: storage });
 // Call the below on app to enable it to upload images to database
 module.exports = function(app) {
 
-	app.post('/api/photo', upload.single('photo'), function(req, res) {
-		console.log('--> Request File --> ',req.file);
-		console.log('--> Request Body --> ',req.body);
+  app.post('/api/photo', upload.single('photo'), function(req, res) {
+    console.log('--> Request File --> ', req.file);
+    console.log('--> Request Body --> ', req.body);
 
-		// 'mediaUpload' handles saving image file to Amazon Web Services S3 cloud
-		// and also creates the memly model and saves the url to the AWS S3 image
-		// to the model to be more easily retrieved later
-		mediaUpload.create(req, res);
-	});
+    // 'mediaUpload' handles saving image file to Amazon Web Services S3 cloud
+    // and also creates the memly model and saves the url to the AWS S3 image
+    // to the model to be more easily retrieved later
+    mediaUpload.create(req, res);
+  });
 
   app.post('/user/edit/profilephoto', upload.single('photo'), function(req, res) {
     // console.log(' checking my request file------> ', req.file);
@@ -56,32 +56,32 @@ module.exports = function(app) {
     profileUpload.create(req, res);
   });
 
-	app.get('/api/nearby', function(req, res) {
-		// Acknowledge current user location
-		var userLocation = {
-			lat: parseFloat(req.query.lat),
-			lng: parseFloat(req.query.lng)
-		};
+  app.get('/api/nearby', function(req, res) {
+    // Acknowledge current user location
+    var userLocation = {
+      lat: parseFloat(req.query.lat),
+      lng: parseFloat(req.query.lng)
+    };
 
-		// Find any within 0.05 +/- lat and lng of current user location
-		// which should equate to ~1.15 miles diameter circle centered on user
-		var minLat = userLocation.lat - 0.05;
-		var maxLat = userLocation.lat + 0.05;
-		var minLng = userLocation.lng - 0.05;
-		var maxLng = userLocation.lng + 0.05;
+    // Find any within 0.05 +/- lat and lng of current user location
+    // which should equate to ~1.15 miles diameter circle centered on user
+    var minLat = userLocation.lat - 0.05;
+    var maxLat = userLocation.lat + 0.05;
+    var minLng = userLocation.lng - 0.05;
+    var maxLng = userLocation.lng + 0.05;
 
-		// Query database for any memlys that are within range
-		// http://mongoosejs.com/docs/queries.html
-		Memly.find({
-			'location.lat': { $gt: minLat, $lt: maxLat },
-			'location.lng': { $gt: minLng, $lt: maxLng }
-		}, function(err, memlys) {
-			if (err) {
-				console.log(err);
-				return;
-			};
-			res.send(memlys);
-		});
-	});
+    // Query database for any memlys that are within range
+    // http://mongoosejs.com/docs/queries.html
+    Memly.find({
+      'location.lat': { $gt: minLat, $lt: maxLat },
+      'location.lng': { $gt: minLng, $lt: maxLng }
+    }, function(err, memlys) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      res.send(memlys);
+    });
+  });
 
 };

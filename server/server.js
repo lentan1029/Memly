@@ -84,9 +84,9 @@ app.get('/auth/facebook/callback',
 //   }
 // };
 //check login for rerouting on client side 
-app.get('/isloggedin', helper.isLoggedIn, function(req,res){
+app.get('/isloggedin', helper.isLoggedIn, function(req, res) {
   res.sendStatus(202);
-})
+});
 
 //not for facbeook auth.. this is for profile button?
 app.get('/user/profile/', helper.isLoggedIn, function(req, res) {
@@ -128,7 +128,7 @@ app.put('/user/like-memly', function(req, res) {
         console.log(err);
       }
       res.send(user);
-    })
+    });
   } else {
     res.error('User must log in before doing that!');
   }
@@ -142,7 +142,7 @@ app.put('/user/dislike-memly', function(req, res) {
         console.log(err);
       }
       res.send(user);
-    })
+    });
   } else {
     res.error('User must log in before doing that!');
   }

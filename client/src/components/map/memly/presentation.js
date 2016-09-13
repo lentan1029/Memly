@@ -1,16 +1,16 @@
-import React from 'react'
-import Infowindow from '../infowindow/container'
-import { memlyStyle, memlyStyleHover } from '../../../../styles/memlyStyles'
+import React from 'react';
+import Infowindow from '../infowindow/container';
+import { memlyStyle, memlyStyleHover } from '../../../../styles/memlyStyles';
 
 // Represent user location
 export const UserLocation = (props) => {
-  return(
+  return (
     <div>
       <div className="pin marker bounce" />
       <div className="fuchsia pulse" />
     </div>
-  )
-}
+  );
+};
 
 // Old user marker star:
 // <img className="user-marker" src='../../images/user/user-star@2x.png'/>
@@ -28,8 +28,8 @@ export const MapMemly = (props) => {
         <div className="teal pulse" />
       </div>
     </div>
-  )
-}
+  );
+};
 
 // Old stuffs:
 // height={'60px'}

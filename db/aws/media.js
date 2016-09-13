@@ -104,6 +104,6 @@ exports.create = function(req, res) {
   });
 };
 
-function handleError(res, err) {
+handleError = (res, err) => {
   return res.send(500, err);
-}
+};

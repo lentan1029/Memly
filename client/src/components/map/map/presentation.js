@@ -1,42 +1,42 @@
-import React, { PropTypes, Component } from 'react'
-import GoogleMap from 'google-map-react'
+import React, { PropTypes, Component } from 'react';
+import GoogleMap from 'google-map-react';
 import MapMemlyContainer from '../memly/container';
 
 // import shallowCompare from 'react-addons-shallow-compare'
 // import controllable from 'react-controllables'
 
 const MapPresentational = (props) => {
-  if(props.currentUserLocation.lat === 0){
+  if (props.currentUserLocation.lat === 0) {
     return (
       <div className='loadingscreen'>
         <div className="loading"><h1>L</h1></div> 
         <div className="ringloading pulseloading" />
         <div><h1 className="loading2">ADING</h1></div>
       </div>
-      )
-  }  else {
+      );
+  } else {
 
-  const memlys = props.memlys.map((memly, index) => {
-    const { _id, showInfo, defaultAnimation, media, user, place, comment } = memly;
+    const memlys = props.memlys.map((memly, index) => {
+      const { _id, showInfo, defaultAnimation, media, user, place, comment } = memly;
+      return (
+        <MapMemlyContainer
+          // Represent other peoples' memlys
+          id={_id}
+          media={media}
+          user={user}
+          place={place}
+          comment={comment}
+          handleLike={props.handleLike}
+          handleDislike={props.handleDislike}
+          defaultAnimation={defaultAnimation}
+          showInfo={showInfo}
+          {...memly.location}
+          key={index}
+        />
+      );
+    });
+
     return (
-      <MapMemlyContainer
-        // Represent other peoples' memlys
-        id={_id}
-        media={media}
-        user={user}
-        place={place}
-        comment={comment}
-        handleLike={props.handleLike}
-        handleDislike={props.handleDislike}
-        defaultAnimation={defaultAnimation}
-        showInfo={showInfo}
-        {...memly.location}
-        key={index}
-      />
-    )
-  });
-
-  return (
       <div className="map">
        <GoogleMap
         /*
@@ -68,6 +68,6 @@ const MapPresentational = (props) => {
     </div>
   );
   }
-}
+};
 
-export default MapPresentational
+export default MapPresentational;

@@ -1,13 +1,13 @@
-import React, { PropTypes } from 'react'
-import FirstTimeUser from './FirstTimeUser'
-import axios from 'axios'
+import React, { PropTypes } from 'react';
+import FirstTimeUser from './FirstTimeUser';
+import axios from 'axios';
 class FirstTimeUserContainer extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       userFacebook: {}
-    }
+    };
   }
 
 
@@ -36,19 +36,19 @@ class FirstTimeUserContainer extends React.Component {
       {name: name, email: email, birthday: birthday, gender: gender, bio: bio})
       .then(function(res) {
         console.log('ClientSide updated profile info successfully');
-      })
+      });
   }
 
   render() {
-    return(
+    return (
       <div id="EditProfileContainer">
         <h2>Welcome to Memly, {this.state.userFacebook.name}!</h2>
         <h3>Since you're new here, Tell us about yourself:</h3>
           <FirstTimeUser userFacebook={this.state.userFacebook} changeProfileInfo={this.changeProfileInfo.bind(this)}/>
       </div>
-    )
+    );
   }
 
 }
 
-export default FirstTimeUserContainer
+export default FirstTimeUserContainer;

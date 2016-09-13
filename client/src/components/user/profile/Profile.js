@@ -1,6 +1,6 @@
-import React from 'react'
-import { Router, Route, hashHistory, IndexRoute, Link } from 'react-router'
-import {Grid, Row, Col, Nav, NavItem} from 'react-bootstrap'
+import React from 'react';
+import { Router, Route, hashHistory, IndexRoute, Link } from 'react-router';
+import {Grid, Row, Col, Nav, NavItem} from 'react-bootstrap';
 
 
 
@@ -8,7 +8,7 @@ const Profile = (props) => {
 
   var aboutMe;
   if (props.userFacebook.bio) {
-    aboutMe =           <Row className ="show-grid profileRow">
+    aboutMe =          <Row className ="show-grid profileRow">
             <span><b>About me:</b> {props.userFacebook.bio}</span>
           </Row>;
   } else {
@@ -16,11 +16,11 @@ const Profile = (props) => {
   }
 
   const divStyle = {
-    backgroundImage: 'url(' +props.userFacebook.profilePhotoUrl+ ')',
-    backgroundPosition:'center',
+    backgroundImage: 'url(' + props.userFacebook.profilePhotoUrl + ')',
+    backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat'
-  }
+  };
 
 
 
@@ -72,8 +72,8 @@ const Profile = (props) => {
        
     </Row>
     </Grid>
-  )
-}
+  );
+};
 
 
 
@@ -82,4 +82,4 @@ const Profile = (props) => {
   
 
 
-export default Profile
+export default Profile;
