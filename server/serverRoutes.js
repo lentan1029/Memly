@@ -14,4 +14,4 @@ module.exports = {
     console.log('fb auth success!');
   }
 
-}
+};

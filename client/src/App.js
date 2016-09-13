@@ -1,12 +1,12 @@
-import React from 'react'
-import { render } from 'react-dom'
-import routes from './routes'
-import { createStore, combineReducers } from 'redux'
-import { Provider } from 'react-redux'
-import userReducer from './redux/userReducer'
-import memlysReducer from './redux/memlysReducer'
-import mapReducer from './redux/mapReducer'
-import imageUploadReducer from './redux/imageUploadReducer'
+import React from 'react';
+import { render } from 'react-dom';
+import routes from './routes';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import userReducer from './redux/userReducer';
+import memlysReducer from './redux/memlysReducer';
+import mapReducer from './redux/mapReducer';
+import imageUploadReducer from './redux/imageUploadReducer';
 
 // Combine reducers to be included in 'createStore'
 const reducers = combineReducers({
@@ -14,7 +14,7 @@ const reducers = combineReducers({
   memlysReducer,
   mapReducer,
   imageUploadReducer,
-})
+});
 
 // Create store that houses state-tree of app
 // Can be modified by dispatching actions on above reducers

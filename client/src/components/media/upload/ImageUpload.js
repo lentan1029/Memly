@@ -1,11 +1,11 @@
-import React from 'react'
-import { FormGroup, FormControl, Button, ControlLabel} from 'react-bootstrap'
+import React from 'react';
+import { FormGroup, FormControl, Button, ControlLabel} from 'react-bootstrap';
 
 const ImageUpload = ({imagePreviewUrl, handleSubmit, handleImageChange, handlePlaceChange, handleCommentChange}) => {
   // let {imagePreviewUrl} = this.state;
   let $imagePreview = null;
   if (imagePreviewUrl !== '') {
-    $imagePreview = (<img  style={{marginTop: '2%'}} className='img-rounded' height='30%' width='30%' src={imagePreviewUrl} />);
+    $imagePreview = (<img style={{marginTop: '2%'}} className='img-rounded' height='30%' width='30%' src={imagePreviewUrl} />);
   } else {
     $imagePreview = (<div className="previewText">Preview image</div>);
   }
@@ -39,9 +39,9 @@ const ImageUpload = ({imagePreviewUrl, handleSubmit, handleImageChange, handlePl
     </div>
     </div>
   );
-}
+};
 
-export default ImageUpload
+export default ImageUpload;
 
 // <form method="post" action="/api/photo" enctype="multipart/form-data">
 //   <p>Title: <input type="text" name="title" /></p>

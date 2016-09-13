@@ -1,5 +1,5 @@
-import React from 'react'
-import { Router, Route, hashHistory, IndexRoute, Link } from 'react-router'
+import React from 'react';
+import { Router, Route, hashHistory, IndexRoute, Link } from 'react-router';
 
 const LoggedInNav = (props) => {
   // const onClickLogOut = () => {
@@ -14,7 +14,7 @@ const LoggedInNav = (props) => {
       <Link to="/user/profile" onClick={()=>props.retrieveProfileInfo()}>Profile</Link>
       <Link to="/logout" onClick={props.LogMeOut}>Logout</Link>
     </div>
-  )
-}
+  );
+};
 
-export default LoggedInNav
+export default LoggedInNav;

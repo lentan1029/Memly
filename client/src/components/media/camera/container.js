@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default class Camera extends React.Component {
-	constructor(props) {
+  constructor(props) {
     super(props);
   }
 
@@ -13,14 +13,14 @@ export default class Camera extends React.Component {
       navigator.getUserMedia({video: true}, handleVideo, videoError);
     }
 
-    function handleVideo(stream) {
+    handleVideo = (stream) => {
       video.src = window.URL.createObjectURL(stream);
-    }
+    };
 
-    function videoError(err) {
+    videoError = (err) => {
       console.log(err);
       return;
-    }
+    };
   }
 
   render() {

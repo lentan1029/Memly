@@ -11,8 +11,8 @@ var memlySchema = new Schema({
   visits: Number,
   place: String,
   location: {
-  	lat: Number,
-  	lng: Number
+    lat: Number,
+    lng: Number
   },
   media: {
     url: String,

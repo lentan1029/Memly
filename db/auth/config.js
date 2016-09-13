@@ -1,27 +1,27 @@
 if (process.env.NODE_ENV === 'development') {
   var keys = require('./keys.js');
-};
+}
 
 exports.env = function() {
   switch (process.env.NODE_ENV) {
-    case 'development':
-      return {
-        FACEBOOK_APP_ID: keys.FACEBOOK_APP_ID,
-        FACEBOOK_APP_SECRET: keys.FACEBOOK_APP_SECRET,
-        callbackURL: 'http://localhost:3000/auth/facebook/callback'
-      };
-    case 'production':
-      return {
-        FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
-        FACEBOOK_APP_SECRET: process.env.FACEBOOK_APP_SECRET,
-        callbackURL: 'https://thawing-fortress-62578.herokuapp.com/auth/facebook/callback'
-      };
-    default:
-      return {
-        FACEBOOK_APP_ID: null,
-        FACEBOOK_APP_SECRET: null,
-        callbackURL: null
-      };
+  case 'development':
+    return {
+      FACEBOOK_APP_ID: keys.FACEBOOK_APP_ID,
+      FACEBOOK_APP_SECRET: keys.FACEBOOK_APP_SECRET,
+      callbackURL: 'http://localhost:3000/auth/facebook/callback'
+    };
+  case 'production':
+    return {
+      FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
+      FACEBOOK_APP_SECRET: process.env.FACEBOOK_APP_SECRET,
+      callbackURL: 'https://thawing-fortress-62578.herokuapp.com/auth/facebook/callback'
+    };
+  default:
+    return {
+      FACEBOOK_APP_ID: null,
+      FACEBOOK_APP_SECRET: null,
+      callbackURL: null
+    };
   }
 };
 
