@@ -48,7 +48,7 @@ const memlysInitialState = {
         {
           location: {
             lat: 51.507351,
-            lng: -0.125758
+            lng: -0.155758
           },
           user: {
             name: 'Mike Wong',
@@ -68,7 +68,7 @@ const memlysInitialState = {
         },
         {
           location: {
-            lat: 51.507351,
+            lat: 53.507351,
             lng: -0.125758
           },
           user: {
@@ -109,7 +109,7 @@ const memlysInitialState = {
         {
           location: {
             lat: 51.509351,
-            lng: -0.12958
+            lng: -0.15958
           },
           user: {
             name: 'Mike Wong',
