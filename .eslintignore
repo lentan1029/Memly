@@ -1,0 +1,10 @@
+.eslint*
+**/node_modules
+**/bower_components
+**/lib
+**/vendor
+**/*.min.js
+**/*.dev.js
+**/*.prod.js
+**/*.config.js
+bundle.js
