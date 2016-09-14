@@ -9,6 +9,7 @@ server/config/config.js
 db/auth/keys.js
 
 .DS_Store
+.tern-project
 
 db/aws/sample
 db/aws/config/keys.js
