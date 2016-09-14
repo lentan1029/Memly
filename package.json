@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=development nodemon server/server.js",
+    "start-native": "NODE_ENV=development react-native run-ios",
     "build-css": "node-sass --include-path scss client/styles/scss/main.scss client/styles/css/main.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\""
   },
