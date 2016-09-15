@@ -27,7 +27,7 @@ export default class LoginPage extends Component {
               } else {
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
-                    alert(data.accessToken.toString());
+                    alert(JSON.stringify(data));
                     Actions.MainPage();
                   }
                 );

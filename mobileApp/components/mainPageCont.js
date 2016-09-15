@@ -5,7 +5,7 @@ import {
   View
 } from 'react-native';
 import MapComponent from './MapComponent/MapComponent.js';
-import { connect } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import memlysReducer from '../redux/memlysReducer.js';
 import MyStatusBar from './common/myStatusBar.js';
 import TopNavigationBar from './common/topNavBar.js';

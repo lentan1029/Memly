@@ -100,7 +100,7 @@ app.get('/user/profile/', helper.isLoggedIn, function(req, res) {
 app.get('/user/retrieve/profileinfo/', helper.isLoggedIn, function(req, res) {
 
   if (req.session.passport.user) {
-    var userID = req.session.passport.user['_id'];
+    var userID = req.session.passport.user['_id'] || req.params.userID;
     //console.log('checking to make sure this is the right ID', userID);
     User.findOne({_id: userID}).exec(function(err, found) {
       if (err) {
