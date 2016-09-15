@@ -6,12 +6,14 @@ import {
 } from 'react-native';
 import MapComponent from './MapComponent/MapComponent.js';
 import { connect } from 'react-redux';
-import memlysReducer from '../redux/memlysReducer.js';
+import userReducer from '../redux/userReducer.js';
+import * as userActions from '../redux/userReducer.js';
 import MyStatusBar from './common/myStatusBar.js';
 import TopNavigationBar from './common/topNavBar.js';
 import DrawerMenu from './common/drawerMenu.js';
 import SideMenu from 'react-native-side-menu';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Profile from './ProfileComponent/profile.js';
 
 class ProfilePageContainer extends Component {
   constructor (props) {
@@ -23,9 +25,50 @@ class ProfilePageContainer extends Component {
     this.setState({ isOpen: true });
   }
 
-
   hideSideMenu () {
     this.setState({ isOpen: false });
+  }
+
+  componentWillMount() {
+    this.props.dispatch(userActions.updateUserFacebook({isLoggedIn: true}));
+    this.props.dispatch(userActions.updateMemlyCount([{}]));
+  }
+
+  DateParser(date) {
+    console.log('checking date format', date);
+    var dateArray = date.split('/');
+    var month = Number(dateArray[0]);
+    if (month === 1) {
+      month = 'January';
+    } else if (month === 2) {
+      month = 'February';
+    } else if (month === 3) {
+      month = 'March';
+    } else if (month === 4) {
+      month = 'April';
+    } else if (month === 5) {
+      month = 'May';
+    } else if (month === 6) {
+      month = 'June';
+    } else if (month === 7) {
+      month = 'July';
+    } else if (month === 8) {
+      month = 'August';
+    } else if (month === 9) {
+      month = 'September';
+    } else if (month === 10) {
+      month = 'October';
+    } else if (month === 11) {
+      month = 'November';
+    } else if (month === 12) {
+      month = 'December';
+    }
+
+    var day = Number(dateArray[1]);
+    var year = dateArray[2];
+
+    var dateFormatted = `${month} ${day}, ${year}`;
+    return dateFormatted;
   }
 
   render() {
@@ -36,7 +79,7 @@ class ProfilePageContainer extends Component {
           <View style ={ styles.container2}>
             <TopNavigationBar showSideMenu={this.showSideMenu.bind(this)} />
             <View style={ styles.container1 }>
-              <Text> This is the profile Page </Text>
+              <Profile user = {this.props.user} userFacebook = {this.props.userFacebook} memlyCount={this.props.memlyCount} />
             </View>
           </View>
       </SideMenu>
@@ -60,7 +103,11 @@ const mapStateToProps = function(state) {
   return {
     ...state,
 
-    buttonText: state.memlysReducer.buttonText
+    // isLoggedIn: state.userReducer.isLoggedIn,
+    // user: state.userReducer.user,
+    // userFacebook: state.userReducer.userFacebook,
+    // memlyCount: state.userReducer.memlyCount,
+    // birthday: state.userReducer.birthday,
   };
 };
 

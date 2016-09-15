@@ -168,17 +168,17 @@ const memlysInitialState = {
 
 
 export default function memlysReducer(state = memlysInitialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     
-    case 'ADD_MEMLY' : {
-      return {
-        ...state,
-        memlyIdStorage : {
-          ...state.memlyIdStorage,
-          [action.memly['_id']]: true, // DO SOMETHING WITH THISSSS
-        },
-        memlys: [action.memly, ...state.memlys,]
-      }
+  case 'ADD_MEMLY' : {
+    return {
+      ...state,
+      memlyIdStorage: {
+        ...state.memlyIdStorage,
+        [action.memly['_id']]: true, // DO SOMETHING WITH THISSSS
+      },
+      memlys: [action.memly, ...state.memlys, ]
+    };
   }
 
   // case 'ADD_MEMLY' : {
@@ -188,6 +188,6 @@ export default function memlysReducer(state = memlysInitialState, action) {
   //   }
   // }
 
-    default : return state
+  default : return state;
   }
 }
