@@ -26,8 +26,8 @@ class MapComponent extends Component {
       (position) => {
         var startPosition = {longitude: position.longitude, latitude: position.latitude};
         this.props.dispatch(MapActions.updateUserLocation(startPosition));
-      }, (error) => alert('We\'re truly sorry, but your geolocation seems to not be working correctly :('),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+      }, (error) => alert('We\'re truly sorry, but your geolocation seems to not be working correctly :(')
+      // {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
     this.watchID = navigator.geolocation.watchPosition(({coords}) => {
       var lastPosition = {longitude: coords.longitude, latitude: coords.latitude};
@@ -42,7 +42,7 @@ class MapComponent extends Component {
 
   centerOnUser () {
     alert(JSON.stringify(this.props));
-    this.refs.map.animateToCoordinate(this.props.currentUserLocation, 200);
+    // this.refs.map.animateToCoordinate(this.props.currentUserLocation, 200);
   }
 
 

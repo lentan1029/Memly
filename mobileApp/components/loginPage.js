@@ -6,6 +6,8 @@ import {
 } from 'react-native';
 import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
 
+import { AWS_SERVER } from '../config';
+
 const FBSDK = require('react-native-fbsdk');
 const {
   LoginButton,
@@ -59,14 +61,14 @@ export default class LoginPage extends Component {
               } else {
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
-                    // alert(JSON.stringify(data));
+                    //get data from facebook using accesstoken
                     new GraphRequestManager().addRequest(
                       new GraphRequest(
                         '/me',
                         {
                           accessToken: data.accessToken,
                           parameters: {
-                            fields: {
+                            fields: { //list of field that will be needed to populate the user profile in the db
                               string: 'id,email,name,first_name,last_name'
                             }
                           }
@@ -83,6 +85,14 @@ export default class LoginPage extends Component {
             }
           }
           onLogoutFinished={() => alert('logout.')}/>
+          <Text onPress={ 
+            () => {
+              fetch(AWS_SERVER + '/api/nearby/?lat=37.774929&lng=-122.419416')
+              .then((res)=>(res.json()))
+              .then((text)=>(console.log(text)))
+              .catch((err)=>(console.log('error:', err)));
+            }
+          }>whattt</Text>
       </View>
     );
   }
