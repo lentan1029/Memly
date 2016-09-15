@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
 
-import { AWS_SERVER } from '../config';
+import { getNearby } from '../helpers';
 
 const FBSDK = require('react-native-fbsdk');
 const {
@@ -15,36 +15,6 @@ const {
   GraphRequest,
   GraphRequestManager
 } = FBSDK;
-
-// var shape = {
-//   id: '',
-//   name: '',
-//   first_name: '',
-//   last_name: '',
-//   education: '',
-//   location: '',
-//   birthday: '',
-//   cover: '',
-//   picture: '',
-//   gender: '',
-//   link: '',
-//   is_verified: ''
-// };
-
-// const infoRequest = new GraphRequest(
-//   '/me',
-//   {
-//     accessToken: accessToken,
-//     parameters: {
-//       fields: {
-//         string: 'id,email,name,first_name,last_name'
-//       }
-//     }
-//   },
-//   function(err, res) {
-//     console.log('Graph err/result is:', err, res);
-//   }
-// );
 
 export default class LoginPage extends Component {
   render() {
@@ -87,8 +57,7 @@ export default class LoginPage extends Component {
           onLogoutFinished={() => alert('logout.')}/>
           <Text onPress={ 
             () => {
-              fetch(AWS_SERVER + '/api/nearby/?lat=37.774929&lng=-122.419416')
-              .then((res)=>(res.json()))
+              getNearby(37.774929, -122.419416)
               .then((text)=>(console.log(text)))
               .catch((err)=>(console.log('error:', err)));
             }
