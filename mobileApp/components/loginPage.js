@@ -35,7 +35,6 @@ export default class LoginPage extends Component {
             }
           }
           onLogoutFinished={() => alert('logout.')}/>
-          <Text onPress={Actions.MainPage}> Maps </Text>
       </View>
     );
   }

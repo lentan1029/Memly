@@ -5,30 +5,46 @@ import {
   View
 } from 'react-native';
 import MapComponent from './MapComponent/MapComponent.js';
-import { Provider, connect } from 'react-redux';
+import { connect } from 'react-redux';
 import memlysReducer from '../redux/memlysReducer.js';
+import MyStatusBar from './common/myStatusBar.js';
+import TopNavigationBar from './common/topNavBar.js';
+import DrawerMenu from './common/drawerMenu.js';
+import SideMenu from 'react-native-side-menu';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 class MainPageContainer extends Component {
   constructor (props) {
     super(props);
+    this.state = { isOpen: false }; 
+  }
+
+  showSideMenu () {
+    this.setState({ isOpen: true });
   }
 
   render() {
+    const menu = <DrawerMenu/>;
     return (
-      <View style={styles.container}>
-        <MapComponent />
-        <Text onPress={() => { alert(JSON.stringify(this.props)); } }>{ this.props.buttonText || 'Click Me' }</Text>
-        <Text onPress={() => { 
-          alert('clicked');
-          this.props.dispatch({type: 'ADD_MEMLY', memly: {'buttonText': 'HELP'}}); }} > Change the text above </Text>
-      </View>
+      <SideMenu menu={menu} menuPosition={'right'} isOpen={ this.state.isOpen }>
+          <MyStatusBar backgroundColor="#0288D1"/>
+          <View style ={ styles.container2}>
+            <TopNavigationBar showSideMenu={this.showSideMenu.bind(this)} />
+            <View style={ styles.container1 }>
+              <MapComponent />
+            </View>
+          </View>
+      </SideMenu>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  container2: {
+    flex: 1
+  },
+  container1: {
+    flex: 15,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
