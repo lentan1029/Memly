@@ -6,10 +6,14 @@ import {
 } from 'react-native';
 import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
 
+import { getNearby } from '../helpers';
+
 const FBSDK = require('react-native-fbsdk');
 const {
   LoginButton,
-  AccessToken
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager
 } = FBSDK;
 
 export default class LoginPage extends Component {
@@ -27,7 +31,23 @@ export default class LoginPage extends Component {
               } else {
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
-                    alert(data.accessToken.toString());
+                    //get data from facebook using accesstoken
+                    new GraphRequestManager().addRequest(
+                      new GraphRequest(
+                        '/me',
+                        {
+                          accessToken: data.accessToken,
+                          parameters: {
+                            fields: { //list of field that will be needed to populate the user profile in the db
+                              string: 'id,email,name,first_name,last_name'
+                            }
+                          }
+                        },
+                        function(err, res) {
+                          console.log('Graph err/result is:', err, res);
+                        }
+                      )
+                    ).start();
                     Actions.MainPage();
                   }
                 );
@@ -35,6 +55,13 @@ export default class LoginPage extends Component {
             }
           }
           onLogoutFinished={() => alert('logout.')}/>
+          <Text onPress={ 
+            () => {
+              getNearby(37.774929, -122.419416)
+              .then((text)=>(console.log(text)))
+              .catch((err)=>(console.log('error:', err)));
+            }
+          }>whattt</Text>
       </View>
     );
   }
