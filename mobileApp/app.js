@@ -7,15 +7,15 @@ import {
   Text,
   View
 } from 'react-native';
-import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
+import { Router, Scene, Actions, ActionConst, DefaultRenderer } from 'react-native-router-flux';
 import MapComponent from './components/MapComponent/MapComponent.js';
 import LoginPage from './components/loginPage.js';
 import MainPage from './components/mainPageCont.js';
-// import ProfilePage from './components/profilePageCont.js';
+import ProfilePage from './components/profilePageCont.js';
+import MyMemliesPage from './components/myMemliesPageCont.js';
 import routes from './redux/routesReducer.js';
 import memlysReducer from './redux/memlysReducer.js';
 import TopNavBar from './components/common/topNavBar.js';
-
 import mapReducer from './components/MapComponent/mapReducer.js';
 
 const reducers = combineReducers({
@@ -41,9 +41,8 @@ export default class memly extends Component {
           <Scene key='root' hideNavBar={true}>
             <Scene key='LoginPage' component={LoginPage} title='LoginPage' initial={true} />
             <Scene key='MainPage' component={MainPage} title='MainPage' />
-            {
-            //<Scene key='ProfilePage' component={ProfilePage} title='ProfilePage' />
-            }
+            <Scene key='ProfilePage' component={ProfilePage} title='ProfilePage' />
+            <Scene key='MyMemliesPage' component={MyMemliesPage} title='MyMemliesPage' />
           </Scene>
         </RouterWithRedux>
       </Provider>

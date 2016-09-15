@@ -17,38 +17,55 @@ const {
 } = FBSDK;
 
 
-var DrawerMenu = () => {
+class DrawerMenu extends Component {
+  constructor (props) {
+    super(props);
+  }
+  render() {
+    return (
+      <View style={styles.menuContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.menuTitle}>
+          Menu
+          </Text>
+        </View>
 
-  return (
-    <View style={styles.menuContainer}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.menuTitle}>
-        Menu
-        </Text>
+        <View style={styles.itemContainer}>
+          <TouchableOpacity onPress={() => {
+            this.props.hideSideMenu();
+            Actions.MainPage();
+          }}>
+            <Text style={styles.menuText}><Icon style={styles.icon} name="camera-retro" size={30} color="white" />
+              <Text>   </Text>Memlys</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => {
+            this.props.hideSideMenu();
+            Actions.MyMemliesPage();
+          }}>
+            <Text style={styles.menuText}><Icon style={styles.icon} name="smile-o" size={30} color="white" />
+              <Text>    </Text>My Memlys</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => {
+            this.props.hideSideMenu();
+            Actions.ProfilePage();
+          }}>
+            <Text style={styles.menuText}><Icon style={styles.icon} name="user" size={30} color="white" />
+              <Text>    </Text>Profile</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.fbContainer}>
+          <LoginButton publishPermissions={['publish_actions']} onLogoutFinished={() => {
+            Actions.LoginPage();
+            this.props.hideSideMenu();
+          }
+          }/>
+        </View>
       </View>
-
-      <View style={styles.itemContainer}>
-        <TouchableOpacity>
-          <Text style={styles.menuText}><Icon style={styles.icon} name="camera-retro" size={30} color="white" />
-            <Text>   </Text>Memlys</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Text style={styles.menuText}><Icon style={styles.icon} name="smile-o" size={30} color="white" />
-            <Text>    </Text>My Memlys</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Text style={styles.menuText}><Icon style={styles.icon} name="user" size={30} color="white" />
-            <Text>    </Text>Profile</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.fbContainer}>
-        <LoginButton publishPermissions={['publish_actions']} onLogoutFinished={() => Actions.LoginPage()}/>
-      </View>
-    </View>
-  );
-};
+    );
+  }
+}
 
 
 var styles = StyleSheet.create({

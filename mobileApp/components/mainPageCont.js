@@ -23,10 +23,15 @@ class MainPageContainer extends Component {
     this.setState({ isOpen: true });
   }
 
+
+  hideSideMenu () {
+    this.setState({ isOpen: false });
+  }
+
   render() {
-    const menu = <DrawerMenu/>;
+    const menu = <DrawerMenu hideSideMenu={this.hideSideMenu.bind(this)} />;
     return (
-      <SideMenu menu={menu} menuPosition={'right'} isOpen={ this.state.isOpen }>
+      <SideMenu menu={menu} menuPosition={'right'} isOpen={ this.state.isOpen } >
           <MyStatusBar backgroundColor="#0288D1"/>
           <View style ={ styles.container2}>
             <TopNavigationBar showSideMenu={this.showSideMenu.bind(this)} />
