@@ -88,13 +88,16 @@ app.get('/isloggedin', helper.isLoggedIn, function(req, res) {
   res.sendStatus(202);
 });
 
+
+
+/******************** WEBSITE ENDPOINTS *************************/
+
 //not for facbeook auth.. this is for profile button?
 app.get('/user/profile/', helper.isLoggedIn, function(req, res) {
   //console.log('am i hitting my get user profile');
   res.redirect('http://localhost:3000/#/user/profile/');
   // }
 });
-
 
 //function to pass information from database to client
 app.get('/user/retrieve/profileinfo/', helper.isLoggedIn, function(req, res) {
@@ -183,6 +186,106 @@ app.post('/user/edit/profileinfo/', helper.isLoggedIn, function(req, res) {
   });
 
 });
+
+
+/********************** MOBILE ENDPOINTS *************************/
+
+const createMobileUserMiddleware = function(req, res, next) {
+  var userID = req.body.userID;
+  //format into the shape of the raw data that you would normally get from passport auth
+  var profile = {_raw: {
+    id: userID //we need to fill these in to populate the database with user info
+  }};
+
+  User.findOrCreate(profile, function(err, user) { //taken from auth.js
+    if (err) { 
+      console.log('Error:', err);
+    }
+  });
+
+  next();
+};
+
+//note: all endpoints changed to post
+app.post('mobile/user/retrieve/profileinfo/', function(req, res) {
+  User.findOne({_id: req.body.userID}).exec(function(err, found) {
+    if (err) {
+      res.status(404).send('I got a bad feeling about this....');
+    }
+    if (found) {
+      res.status(200).send(found);
+    } else {
+      console.log('Error occured, no errors and no data returned.');
+    }
+  });
+});
+app.post('mobile/user/like-memly', function(req, res) {
+  if (req.body.userID) {
+    var userID = req.body.userID;
+    var data = JSON.parse(JSON.stringify(req.body)); 
+    delete data.userID; //deep copy req.body and remove property to avoid manipulating req.body
+    User.findOneAndUpdate({_id: userID}, {$push: {'likedMemlys': data}}, {new: true}, function(err, user) {
+      if (err) {
+        console.log(err);
+      }
+      res.send(user);
+    });
+  } else {
+    res.error('No userID given');
+  }
+});
+app.post('mobile/user/dislike-memly', function(req, res) {
+  if (req.body.userID) {
+    var userID = req.body.userID;
+    var data = JSON.parse(JSON.stringify(req.body)); 
+    delete data.userID; //deep copy req.body and remove property to avoid manipulating req.body
+    User.findOneAndUpdate({_id: userID}, {$push: {'dislikedMemlys': req.body}}, {new: true}, function(err, user) {
+      if (err) {
+        console.log(err);
+      }
+      res.send(user);
+    });
+  } else {
+    res.error('No userID given');
+  }
+});
+app.post('mobile/user/edit/profileinfo/', function(req, res) {
+  //console.log('i hit my post request for edit profile', req.body);
+  var userID = req.body.userID;
+  //console.log('whats in my editProfile post request ------>', req.body);
+  var name = req.body.name;
+  var email = req.body.email;
+  var birthday = req.body.birthday;
+  var gender = req.body.gender;
+  var bio = req.body.bio;
+
+  User.findOne({_id: userID}).exec(function(err, found) {
+    if (err) {
+      res.status(404).send('couldnt find the model ur looking for');
+    }
+    if (found) {
+      //console.log('checking found in editProfile', found);
+      found.name = name;
+      found.email = email;
+      found.birthday = birthday;
+      found.gender = gender;
+      found.bio = bio;
+      found.save((function(err, User) {
+        if (err) {
+          //console.log('am i hitting error in edit profile???????');
+          res.status(500).send(err);
+        }
+        //console.log('i successfully edited my profile and just saved ----->');
+        res.status(200).send(found);
+      }));
+    } else {
+      res.redirect('Error occured, no errors and no data returned.');
+    }
+  });
+
+});
+
+
 
 
 

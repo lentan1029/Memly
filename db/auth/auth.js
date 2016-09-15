@@ -28,7 +28,7 @@ module.exports = function(app) {
     callbackURL: env.callbackURL, // TODO: put website url here
     profileFields: config.profileFields
   }, function(accessToken, refreshToken, profile, done) {
-    //console.log('chekcing profile in auth.js', profile);
+    console.log('checking profile in auth.js', profile);
     User.findOrCreate(profile, function(err, user) {
       if (err) { return done(err); }
       done(null, user);
