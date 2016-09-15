@@ -10,37 +10,83 @@ import {
 import {Actions, ActionConst } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MyStatusBar from './myStatusBar.js';
+const FBSDK = require('react-native-fbsdk');
+const {
+  LoginButton,
+  AccessToken
+} = FBSDK;
 
 
-var DrawerMenu = () => {
+class DrawerMenu extends Component {
+  constructor (props) {
+    super(props);
+  }
+  render() {
+    return (
+      <View style={styles.menuContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.menuTitle}>
+          Menu
+          </Text>
+        </View>
 
-  return (
-    <View style={styles.menuContainer}>
-      <Text style={styles.menuTitle}>
-      Menu
-      </Text>
+        <View style={styles.itemContainer}>
+          <TouchableOpacity onPress={() => {
+            this.props.hideSideMenu();
+            Actions.MainPage();
+          }}>
+            <Text style={styles.menuText}><Icon style={styles.icon} name="camera-retro" size={30} color="white" />
+              <Text>   </Text>Memlys</Text>
+          </TouchableOpacity>
 
-      <TouchableOpacity onPress={Actions.LoginPage}>
-        <Text style={styles.menuText}><Icon style={styles.icon} name="camera-retro" size={30} color="white" />
-          Memlys</Text>
-      </TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+            this.props.hideSideMenu();
+            Actions.MyMemliesPage();
+          }}>
+            <Text style={styles.menuText}><Icon style={styles.icon} name="smile-o" size={30} color="white" />
+              <Text>    </Text>My Memlys</Text>
+          </TouchableOpacity>
 
-      <TouchableOpacity>
-        <Text style={styles.menuText}><Icon style={styles.icon} name="smile-o" size={30} color="white" />
-          My Memlys</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity>
-        <Text style={styles.menuText}><Icon style={styles.icon} name="user" size={30} color="white" />
-          Profile</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+          <TouchableOpacity onPress={() => {
+            this.props.hideSideMenu();
+            Actions.ProfilePage();
+          }}>
+            <Text style={styles.menuText}><Icon style={styles.icon} name="user" size={30} color="white" />
+              <Text>    </Text>Profile</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.fbContainer}>
+          <LoginButton publishPermissions={['publish_actions']} onLogoutFinished={() => {
+            Actions.LoginPage();
+            this.props.hideSideMenu();
+          }
+          }/>
+        </View>
+      </View>
+    );
+  }
+}
 
 
 var styles = StyleSheet.create({
   menuContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#0288D1'
+  },
+  titleContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0288D1'
+  },
+  itemContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    backgroundColor: '#0288D1'
+  },
+  fbContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -55,14 +101,13 @@ var styles = StyleSheet.create({
   menuText: {
     textAlign: 'center',
     marginTop: 30,
+    marginLeft: 30,
     color: 'white',
     fontWeight: 'bold',
     fontSize: 25,
     height: 50
   },
   icon: {
-    position: 'relative',
-    marginRight: 25
   }
 });
 

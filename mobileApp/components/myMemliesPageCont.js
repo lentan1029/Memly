@@ -13,7 +13,7 @@ import DrawerMenu from './common/drawerMenu.js';
 import SideMenu from 'react-native-side-menu';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-class ProfilePageContainer extends Component {
+class MyMemliesPageContainer extends Component {
   constructor (props) {
     super(props);
     this.state = { isOpen: false }; 
@@ -36,7 +36,7 @@ class ProfilePageContainer extends Component {
           <View style ={ styles.container2}>
             <TopNavigationBar showSideMenu={this.showSideMenu.bind(this)} />
             <View style={ styles.container1 }>
-              <Text> This is the profile Page </Text>
+              <Text> This is the memlies Page </Text>
             </View>
           </View>
       </SideMenu>
@@ -64,4 +64,4 @@ const mapStateToProps = function(state) {
   };
 };
 
-export default connect(mapStateToProps)(ProfilePageContainer);
+export default connect(mapStateToProps)(MyMemliesPageContainer);
