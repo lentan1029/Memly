@@ -18,7 +18,6 @@ var helper = require('./helperFunctions.js');
 //------ instantiate app. connect middleware. -----//
 var app = express();
 
-
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(morgan('dev'));
@@ -190,6 +189,8 @@ app.post('/user/edit/profileinfo/', helper.isLoggedIn, function(req, res) {
 
 /********************** MOBILE ENDPOINTS *************************/
 
+var createAndSaveNewMemly = require('../db/memly/utils').createAndSaveNewMemly;
+
 const createMobileUserMiddleware = function(req, res, next) {
   var userID = req.body.userID;
   //format into the shape of the raw data that you would normally get from passport auth
@@ -285,6 +286,10 @@ app.post('mobile/user/edit/profileinfo/', function(req, res) {
 
 });
 
+app.post('mobile/user/createMemly', function(req, res) {
+  var mediaUrl = 'https://developer.chrome.com/extensions/examples/api/idle/idle_simple/sample-128.png';
+  createAndSaveNewMemly(req, res, mediaUrl); //include user object in the res
+});
 
 
 

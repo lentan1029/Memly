@@ -9,8 +9,40 @@ import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
 const FBSDK = require('react-native-fbsdk');
 const {
   LoginButton,
-  AccessToken
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager
 } = FBSDK;
+
+// var shape = {
+//   id: '',
+//   name: '',
+//   first_name: '',
+//   last_name: '',
+//   education: '',
+//   location: '',
+//   birthday: '',
+//   cover: '',
+//   picture: '',
+//   gender: '',
+//   link: '',
+//   is_verified: ''
+// };
+
+// const infoRequest = new GraphRequest(
+//   '/me',
+//   {
+//     accessToken: accessToken,
+//     parameters: {
+//       fields: {
+//         string: 'id,email,name,first_name,last_name'
+//       }
+//     }
+//   },
+//   function(err, res) {
+//     console.log('Graph err/result is:', err, res);
+//   }
+// );
 
 export default class LoginPage extends Component {
   render() {
@@ -27,7 +59,23 @@ export default class LoginPage extends Component {
               } else {
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
-                    alert(JSON.stringify(data));
+                    // alert(JSON.stringify(data));
+                    new GraphRequestManager().addRequest(
+                      new GraphRequest(
+                        '/me',
+                        {
+                          accessToken: data.accessToken,
+                          parameters: {
+                            fields: {
+                              string: 'id,email,name,first_name,last_name'
+                            }
+                          }
+                        },
+                        function(err, res) {
+                          console.log('Graph err/result is:', err, res);
+                        }
+                      )
+                    ).start();
                     Actions.MainPage();
                   }
                 );
