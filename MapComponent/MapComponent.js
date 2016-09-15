@@ -21,7 +21,7 @@ export default class MapComponent extends Component {
           longitudeDelta: 0.0421,
         }}
       />
-      )
+      );
   }
 }
 
@@ -41,6 +41,7 @@ const style = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+    zIndex: -999
   },
 });
 
