@@ -16,12 +16,12 @@ import routes from './redux/routesReducer.js';
 import memlysReducer from './redux/memlysReducer.js';
 import TopNavBar from './components/common/topNavBar.js';
 
-
-
+import mapReducer from './components/MapComponent/mapReducer.js';
 
 const reducers = combineReducers({
   routes,
-  memlysReducer
+  memlysReducer,
+  mapReducer
 });
 
 

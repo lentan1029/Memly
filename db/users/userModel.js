@@ -33,15 +33,15 @@ userSchema = new Schema({
       mediaUrl: String,
       date: Date,
       location: {
-        lat: Number,
-        lng: Number
+        latitude: Number,
+        longitude: Number
       }
     }
   ],
   meta: {
     lastLogInLocation: {
-      lat: Number,
-      lng: Number
+      latitude: Number,
+      longitude: Number
     },
     joinDate: {
       type: Date,

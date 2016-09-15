@@ -59,22 +59,22 @@ module.exports = function(app) {
   app.get('/api/nearby', function(req, res) {
     // Acknowledge current user location
     var userLocation = {
-      lat: parseFloat(req.query.lat),
-      lng: parseFloat(req.query.lng)
+      lat: parseFloat(req.query.latitude),
+      lng: parseFloat(req.query.lngitude)
     };
 
     // Find any within 0.05 +/- lat and lng of current user location
     // which should equate to ~1.15 miles diameter circle centered on user
-    var minLat = userLocation.lat - 0.05;
-    var maxLat = userLocation.lat + 0.05;
-    var minLng = userLocation.lng - 0.05;
-    var maxLng = userLocation.lng + 0.05;
+    var minLat = userLocation.latitude - 0.05;
+    var maxLat = userLocation.latitude + 0.05;
+    var minLng = userLocation.longitude - 0.05;
+    var maxLng = userLocation.longitude + 0.05;
 
     // Query database for any memlys that are within range
     // http://mongoosejs.com/docs/queries.html
     Memly.find({
-      'location.lat': { $gt: minLat, $lt: maxLat },
-      'location.lng': { $gt: minLng, $lt: maxLng }
+      'location.latitude': { $gt: minLat, $lt: maxLat },
+      'location.longitude': { $gt: minLng, $lt: maxLng }
     }, function(err, memlys) {
       if (err) {
         console.log(err);
