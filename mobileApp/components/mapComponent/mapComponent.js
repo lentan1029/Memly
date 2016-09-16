@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import MapView from 'react-native-maps';
 import Ionicons from 'react-native-vector-icons/Ionicons.js';
 import * as MapActions from '../../redux/mapReducer.js';
-
+import * as CurrentMemlyActions from '../../redux/currentMemlyReducer.js';
 import CustomMarker from './customMarker.js';
 import MemlyCallout from './memlyCallout.js';
 
@@ -46,11 +46,9 @@ class MapComponent extends Component {
     alert(JSON.stringify(this.props));
     // this.refs.map.animateToCoordinate(this.props.currentUserLocation, 200);
   }
-  
-  flipExpand() {
-    alert('what');
-    // LayoutAnimation.spring();
-    // this.setState({w: this.state.w+20, h: this.state.h+20});
+
+  _handlingPress(memly) {
+    this.props.dispatch(CurrentMemlyActions.updateCurrentMemly(memly));
   }
 
   render() {
@@ -69,10 +67,10 @@ class MapComponent extends Component {
             <MapView.Marker
               key={i}
               coordinate={memly.location}
-              calloutOffset= {{ x: 10, y: -100 }}
+              calloutOffset= {{ x: -10, y: 0 }}
             >
-              <MapView.Callout style = {{height: 100, width: 100, backgroundColor: 'black'}} tooltip>
-                  <MemlyCallout memly = {memly}/>
+              <MapView.Callout style = {{height: 100, width: 100, borderRadius: 50}} tooltip>
+                  <MemlyCallout _handlingPress = {context._handlingPress.bind(context)} memly = {memly}/>
               </MapView.Callout>
             </MapView.Marker>
 
@@ -122,6 +120,7 @@ const mapStateToProps = function(state) {
   return {
     currentUserLocation: state.mapReducer.currentUserLocation,
     memlys: state.memlysReducer.memlys,
+    currentMemly: state.currentMemlyReducer.currentMemly
   };
 };
 export default connect(mapStateToProps)(MapComponent);
