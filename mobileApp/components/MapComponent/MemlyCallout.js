@@ -1,9 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text
-} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 
 export default class MemlyCallout extends Component {
   render() {
@@ -11,7 +7,7 @@ export default class MemlyCallout extends Component {
       <View style={styles.container}>
         <Text>{this.props.memly.name}</Text>
       </View>
-      )
+      );
   }
 }
 
@@ -23,4 +19,4 @@ const styles = StyleSheet.create({
     height: 140,
     backgroundColor: 'red'
   }
-})
+});

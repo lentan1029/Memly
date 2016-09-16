@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import MapComponent from './MapComponent/MapComponent.js';
+import {StyleSheet, Text, View} from 'react-native';
 import { connect } from 'react-redux';
-import userReducer from '../redux/userReducer.js';
-import * as userActions from '../redux/userReducer.js';
-import MyStatusBar from './common/myStatusBar.js';
-import TopNavigationBar from './common/topNavBar.js';
-import DrawerMenu from './common/drawerMenu.js';
 import SideMenu from 'react-native-side-menu';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Profile from './ProfileComponent/profile.js';
+
+import MapComponent from '../MapComponent/MapComponent.js';
+import MyStatusBar from '../common/myStatusBar.js';
+import TopNavigationBar from '../common/topNavBar.js';
+import DrawerMenu from '../common/drawerMenu.js';
+import Profile from './profile.js';
+
+import userReducer from '../../redux/userReducer.js';
+import * as userActions from '../../redux/userReducer.js';
 
 class ProfilePageContainer extends Component {
   constructor (props) {

@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import MapComponent from './MapComponent/MapComponent.js';
-import { Provider, connect } from 'react-redux';
-import memlysReducer from '../redux/memlysReducer.js';
-import MyStatusBar from './common/myStatusBar.js';
-import TopNavigationBar from './common/topNavBar.js';
-import DrawerMenu from './common/drawerMenu.js';
-import SideMenu from 'react-native-side-menu';
+import {StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import SideMenu from 'react-native-side-menu';
+import { connect } from 'react-redux';
 
-class MainPageContainer extends Component {
+import MapComponent from '../MapComponent/MapComponent.js';
+import memlysReducer from '../../redux/memlysReducer.js';
+import MyStatusBar from '../common/myStatusBar.js';
+import TopNavigationBar from '../common/topNavBar.js';
+import DrawerMenu from '../common/drawerMenu.js';
+
+class MyMemliesPageContainer extends Component {
   constructor (props) {
     super(props);
     this.state = { isOpen: false }; 
@@ -36,7 +33,7 @@ class MainPageContainer extends Component {
           <View style ={ styles.container2}>
             <TopNavigationBar showSideMenu={this.showSideMenu.bind(this)} />
             <View style={ styles.container1 }>
-              <MapComponent />
+              <Text> This is the memlies Page </Text>
             </View>
           </View>
       </SideMenu>
@@ -64,4 +61,4 @@ const mapStateToProps = function(state) {
   };
 };
 
-export default connect(mapStateToProps)(MainPageContainer);
+export default connect(mapStateToProps)(MyMemliesPageContainer);

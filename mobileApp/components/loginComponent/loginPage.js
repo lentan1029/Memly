@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
+import {connect} from 'react-redux';
 
-import { getNearby } from '../helpers';
+import * as LoginActions from '../../redux/loginReducer.js';
+import { getNearby } from '../../helpers';
 
 const FBSDK = require('react-native-fbsdk');
 const {
@@ -16,8 +14,10 @@ const {
   GraphRequestManager
 } = FBSDK;
 
-export default class LoginPage extends Component {
+class LoginPage extends Component {
   render() {
+    const context = this;
+
     return (
       <View style={styles.container}>
         <LoginButton
@@ -39,12 +39,13 @@ export default class LoginPage extends Component {
                           accessToken: data.accessToken,
                           parameters: {
                             fields: { //list of field that will be needed to populate the user profile in the db
-                              string: 'id,email,name,first_name,last_name'
+                              string: 'id,email,name,first_name,last_name,picture,gender,birthday'
                             }
                           }
                         },
                         function(err, res) {
                           console.log('Graph err/result is:', err, res);
+                          context.props.dispatch(LoginActions.saveUser(res));
                         }
                       )
                     ).start();
@@ -66,6 +67,15 @@ export default class LoginPage extends Component {
     );
   }
 }
+
+const mapStateToProps = function(state) {
+  return {
+    userInfo: state.loginReducer.userInfo
+  };
+};
+
+export default connect(mapStateToProps)(LoginPage);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
