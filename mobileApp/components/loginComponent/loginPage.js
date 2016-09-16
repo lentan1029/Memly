@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
 
 import { registerWithServer, getNearby } from '../../helpers';
