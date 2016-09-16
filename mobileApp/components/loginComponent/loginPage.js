@@ -25,7 +25,6 @@ const {
 class LoginPageContainer extends Component {
   render() {
     const context = this;
-
     return (
       <View style={styles.container}>
         <LoginButton
@@ -53,7 +52,7 @@ class LoginPageContainer extends Component {
                         },
                         function(err, res) {
                           console.log('Graph err/result is:', err, res);
-                          context.props.dispatch(LoginActions.saveUser(res));
+                          context.props.dispatch(updateUser(res));
                         }
                       )
                     ).start();
@@ -70,7 +69,7 @@ class LoginPageContainer extends Component {
               .then((data)=>(console.log(data)))
               .catch((err)=>(console.log('error:', err)));
             }
-          }>{this.props.id}</Text>
+          }>{this.props.name}</Text>
       </View>
     );
   }
