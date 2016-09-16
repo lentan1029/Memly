@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
+import { updateFacebookInfo, getNearby } from '../../helpers';
 
-import { registerWithServer, getNearby } from '../../helpers';
+import { connect } from 'react-redux';
 
-import {connect} from 'react-redux';
-import { updateUser } from '../../redux/loginReducer'; //action creator
-
-import * as LoginActions from '../../redux/loginReducer.js';
+import { updateFacebookUserID } from '../../redux/loginReducer'; //action creator
+import { updateUserFacebook } from '../../redux/userReducer';
 
 
 const FBSDK = require('react-native-fbsdk');
@@ -48,7 +47,12 @@ class LoginPageContainer extends Component {
                         },
                         function(err, res) {
                           console.log('Graph err/result is:', err, res);
-                          context.props.dispatch(updateUser(res));
+                          updateFacebookInfo(res) //update server with fb info, returns id
+                          .then((found) => { 
+                            context.props.dispatch(updateFacebookUserID(found._id));
+                            updateUserFacebook(res);
+                            // updateProfile
+                          });
                         }
                       )
                     ).start();
@@ -61,12 +65,12 @@ class LoginPageContainer extends Component {
           onLogoutFinished={() => alert('logout.')}/>
           <Text onPress={
             () => {
-              // console.log(new URL('http://google.com'));
+              console.log('http://google.com');
               getNearby(37.774929, -122.419416)
               .then((data)=>(console.log(data)))
               .catch((err)=>(console.log('error:', err)));
             }
-          }>{this.props.name}</Text>
+          }>{this.props.facebookUserID}</Text>
       </View>
     );
   }

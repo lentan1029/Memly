@@ -1,4 +1,5 @@
 exports.calculateAge = function(birthday) {
+  if (!birthday) return null;
   var year = parseInt(birthday.slice(-4));
   var month = parseInt(birthday.slice(0, 2)) - 1;
   var day = parseInt(birthday.slice(3, 5));

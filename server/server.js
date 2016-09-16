@@ -192,28 +192,27 @@ app.post('/user/edit/profileinfo/', helper.isLoggedIn, function(req, res) {
 var createAndSaveNewMemly = require('../db/memly/utils').createAndSaveNewMemly;
 
 const findOrCreateMobileUserMiddleware = function(req, res, next) {
-  var user = req.body.user;
-  if (!user) {
+  var userID = req.body.id;
+  if (!userID) {
     res.status(200).send('no facebook user provided');
   } else {
   //format into the shape of the raw data that you would normally get from passport auth
-    var profile = {_raw: user};
+    var profile = {_raw: JSON.stringify(req.body)};
 
     User.findOrCreate(profile, function(err, user) { //taken from auth.js
       if (err) { 
         console.log('Error:', err);
       }
+      next();
     });
-
-    next();
   }
 };
 
 //note: all endpoints changed to post
-app.post('mobile/user/retrieve/profileinfo/', 
+app.post('/mobile/user/retrieve/profileinfo/', 
   findOrCreateMobileUserMiddleware,
   function(req, res) {
-    User.findOne({_id: req.body.user.userID}).exec(function(err, found) {
+    User.findOne({_id: req.body.id}).exec(function(err, found) {
       if (err) {
         res.status(404).send('I got a bad feeling about this....');
       }
@@ -226,14 +225,14 @@ app.post('mobile/user/retrieve/profileinfo/',
   }
 );
 
-app.post('mobile/user/like-memly', 
+app.post('/mobile/user/like-memly', 
   findOrCreateMobileUserMiddleware,
   function(req, res) {
     if (req.body.userID) {
-      var userID = req.body.userID;
-      var data = JSON.parse(JSON.stringify(req.body)); 
-      delete data.userID; //deep copy req.body and remove property to avoid manipulating req.body
-      User.findOneAndUpdate({_id: userID}, {$push: {'likedMemlys': data}}, {new: true}, function(err, user) {
+      var userID = req.body.id;
+      // var data = JSON.parse(JSON.stringify(req.body)); 
+      // delete data.userID; //deep copy req.body and remove property to avoid manipulating req.body
+      User.findOneAndUpdate({_id: userID}, {$push: {'likedMemlys': req.body.memly}}, {new: true}, function(err, user) {
         if (err) {
           console.log(err);
         }
@@ -245,14 +244,14 @@ app.post('mobile/user/like-memly',
   }
 );
 
-app.post('mobile/user/dislike-memly', 
+app.post('/mobile/user/dislike-memly', 
   findOrCreateMobileUserMiddleware,
   function(req, res) {
-    if (req.body.userID) {
-      var userID = req.body.userID;
-      var data = JSON.parse(JSON.stringify(req.body)); 
-      delete data.userID; //deep copy req.body and remove property to avoid manipulating req.body
-      User.findOneAndUpdate({_id: userID}, {$push: {'dislikedMemlys': req.body}}, {new: true}, function(err, user) {
+    if (req.body.id) {
+      var userID = req.body.id;
+      // var data = JSON.parse(JSON.stringify(req.body)); 
+      // delete data.userID; //deep copy req.body and remove property to avoid manipulating req.body
+      User.findOneAndUpdate({_id: userID}, {$push: {'dislikedMemlys': req.body.memly}}, {new: true}, function(err, user) {
         if (err) {
           console.log(err);
         }
@@ -264,17 +263,17 @@ app.post('mobile/user/dislike-memly',
   }
 );
 
-app.post('mobile/user/edit/profileinfo/', 
+app.post('/mobile/user/edit/profileinfo/', 
   findOrCreateMobileUserMiddleware,
   function(req, res) {
     //console.log('i hit my post request for edit profile', req.body);
-    var userID = req.body.userID;
+    var userID = req.body.id;
     //console.log('whats in my editProfile post request ------>', req.body);
     var name = req.body.name;
     var email = req.body.email;
     var birthday = req.body.birthday;
     var gender = req.body.gender;
-    var bio = req.body.bio;
+    var bio = req.body.bio || 'no bio';
 
     User.findOne({_id: userID}).exec(function(err, found) {
       if (err) {
@@ -303,7 +302,7 @@ app.post('mobile/user/edit/profileinfo/',
   }
 );
 
-app.post('mobile/user/createMemly', 
+app.post('/mobile/user/createMemly', 
   findOrCreateMobileUserMiddleware,
   function(req, res) {
     var mediaUrl = 'https://developer.chrome.com/extensions/examples/api/idle/idle_simple/sample-128.png';
