@@ -147,6 +147,20 @@
 			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
 			remoteInfo = AirMaps;
 		};
+		B0B1889F1D8B59C30054D7BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A21FEB369054DCDB97FDF3D /* RCTFBLogin.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F3A6B5B1ACFBCC500CA65F7;
+			remoteInfo = RCTFBLogin;
+		};
+		B0B188AC1D8B59C30054D7BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4AB10A4700C495EAE267481 /* RNVectorIcons.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
+			remoteInfo = RNVectorIcons;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -343,6 +357,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+<<<<<<< 67ecbe3f9ce46675c7c4a72e99cbf06058be14e5
 		2CA31F701D8B50FF0041D642 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,6 +374,8 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+=======
+>>>>>>> mobile changes
 		4606D6AA8D0646ADA216838D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,6 +459,25 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+<<<<<<< 67ecbe3f9ce46675c7c4a72e99cbf06058be14e5
+=======
+		B0B188981D8B59C30054D7BF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B0B188A01D8B59C30054D7BF /* libRCTFBLogin.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B0B1889A1D8B59C30054D7BF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B0B188AD1D8B59C30054D7BF /* libRNVectorIcons.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+>>>>>>> mobile changes
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -517,7 +553,11 @@
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
 				{
+<<<<<<< 67ecbe3f9ce46675c7c4a72e99cbf06058be14e5
 					ProductGroup = 2CA31F721D8B50FF0041D642 /* Products */;
+=======
+					ProductGroup = B0B188981D8B59C30054D7BF /* Products */;
+>>>>>>> mobile changes
 					ProjectRef = 4A21FEB369054DCDB97FDF3D /* RCTFBLogin.xcodeproj */;
 				},
 				{
@@ -561,7 +601,11 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
+<<<<<<< 67ecbe3f9ce46675c7c4a72e99cbf06058be14e5
 					ProductGroup = 2CA31F701D8B50FF0041D642 /* Products */;
+=======
+					ProductGroup = B0B1889A1D8B59C30054D7BF /* Products */;
+>>>>>>> mobile changes
 					ProjectRef = F4AB10A4700C495EAE267481 /* RNVectorIcons.xcodeproj */;
 				},
 			);
@@ -670,6 +714,20 @@
 			fileType = archive.ar;
 			path = libAirMaps.a;
 			remoteRef = B0A562FD1D89C9E400631B8D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B0B188A01D8B59C30054D7BF /* libRCTFBLogin.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTFBLogin.a;
+			remoteRef = B0B1889F1D8B59C30054D7BF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B0B188AD1D8B59C30054D7BF /* libRNVectorIcons.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNVectorIcons.a;
+			remoteRef = B0B188AC1D8B59C30054D7BF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
