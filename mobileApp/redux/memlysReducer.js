@@ -36,12 +36,12 @@ const memlysInitialState = {
         avatarUrl: 'http://www.menshairstyles.net/d/76238-2/Young+Asian+man+hairstyles.PNG'
       },
       place: 'Hack Reactor',
-      comment: 'Hey guys!',
+      comment: 'Hey guys! Whats up',
       key: 'Hack Reactor',
       defaultAnimation: 2,
       showInfo: false,
       media: {
-        url: '../../images/test-assets/hackreactor.jpg',
+        url: '/Users/kunalrathi/Documents/greenfield/Memly/client/images/test-assets/hackreactor.jpg',
         timestamp: new Date()
       }
     },

@@ -9,7 +9,7 @@ import MapComponent from '../mapComponent/mapComponent.js';
 import MyStatusBar from '../common/myStatusBar.js';
 import TopNavigationBar from '../common/topNavBar.js';
 import DrawerMenu from '../common/drawerMenu.js';
-import SingleMemly from './SingleMemly.js';
+import SingleMemly from './singleMemly.js';
 
 class SingleMemlyContainer extends Component {
   constructor (props) {

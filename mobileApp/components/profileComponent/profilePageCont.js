@@ -55,12 +55,12 @@ const mapStateToProps = function(state) {
   return {
     ...state,
 
-    firstName: state.loginReducer.first_name,
-    lastName: state.loginReducer.last_name,
-    email: state.loginReducer.email,
-    gender: state.loginReducer.gender,
-    birthday: state.loginReducer.birthday,
-    picture: state.loginReducer.picture.data.url
+    // firstName: state.loginReducer.first_name,
+    // lastName: state.loginReducer.last_name,
+    // email: state.loginReducer.email,
+    // gender: state.loginReducer.gender,
+    // birthday: state.loginReducer.birthday,
+    // picture: state.loginReducer.picture.data.url
   };
 };
 

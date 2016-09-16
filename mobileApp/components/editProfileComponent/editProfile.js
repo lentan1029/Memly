@@ -20,7 +20,6 @@ var Profile = (props) => (
       </Picker></Text>
        
     </View>
-
     <View style={styles.imageContainer}>
       <Image source={{uri: props.picture}} style={styles.image} />
     </View>
@@ -34,10 +33,12 @@ var Profile = (props) => (
         style={styles.button}>
         Save Profile
       </Button>
+
     </View>
 
   </ScrollView>
 );
+
 
 module.exports = Profile;
 
@@ -79,15 +80,6 @@ const styles = StyleSheet.create({
   },
   info: {
     marginTop: 20
-  },
-  input: {
-    marginTop: 5,
-    width: 250,
-    height: 30,
-    backgroundColor: 'lightblue'
-  },
-  picker: {
-    width: 100,
-    height: 20
   }
+
 });
