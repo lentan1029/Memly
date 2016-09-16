@@ -5,10 +5,14 @@ import {
   View
 } from 'react-native';
 import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
+
+import { registerWithServer, getNearby } from '../helpers';
+
 import {connect} from 'react-redux';
+import { updateUser } from '../redux/loginReducer'; //action creator
 
 import * as LoginActions from '../../redux/loginReducer.js';
-import { getNearby } from '../helpers';
+
 
 const FBSDK = require('react-native-fbsdk');
 const {
@@ -18,7 +22,7 @@ const {
   GraphRequestManager
 } = FBSDK;
 
-class LoginPage extends Component {
+class LoginPageContainer extends Component {
   render() {
     const context = this;
 
@@ -66,7 +70,7 @@ class LoginPage extends Component {
               .then((data)=>(console.log(data)))
               .catch((err)=>(console.log('error:', err)));
             }
-          }>whattt</Text>
+          }>{this.props.id}</Text>
       </View>
     );
   }
@@ -74,11 +78,11 @@ class LoginPage extends Component {
 
 const mapStateToProps = function(state) {
   return {
-    userInfo: state.loginReducer.userInfo
+    ...state.loginReducer
   };
 };
 
-export default connect(mapStateToProps)(LoginPage);
+export default connect(mapStateToProps)(LoginPageContainer);
 
 const styles = StyleSheet.create({
   container: {
