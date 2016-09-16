@@ -66,7 +66,7 @@ class LoginPageContainer extends Component {
           onLogoutFinished={() => alert('logout.')}/>
           <Text onPress={
             () => {
-              console.log('http://google.com');
+              // console.log('http://google.com');
               getNearby(37.774929, -122.419416)
               .then((data)=>(console.log(data)))
               .catch((err)=>(console.log('error:', err)));
