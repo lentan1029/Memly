@@ -19,11 +19,12 @@ import memlysReducer from './redux/memlysReducer.js';
 import mapReducer from './redux/mapReducer.js';
 import loginReducer from './redux/loginReducer.js';
 import userReducer from './redux/userReducer.js';
-
+import currentMemlyReducer from './redux/currentMemlyReducer.js';
 
 const reducers = combineReducers({
   routesReducer,
   memlysReducer,
+  currentMemlyReducer,
   mapReducer,
   loginReducer
 });

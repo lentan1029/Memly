@@ -16,13 +16,16 @@ export default class MemlyCallout extends Component {
 
   }
 
-  _handePress() {
+  _handlePress() {
     alert('what');
   }
 
 
   render() {
+    var context = this;
     var _handlingPress = function() {
+      alert(context.props);
+      context.props._handlingPress(context.props.memly);
       Actions.LoginPage();
     };
 
@@ -52,3 +55,5 @@ const styles = StyleSheet.create({
 
   }
 });
+
+
