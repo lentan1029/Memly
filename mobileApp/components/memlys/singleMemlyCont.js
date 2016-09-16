@@ -9,9 +9,9 @@ import MapComponent from '../mapComponent/mapComponent.js';
 import MyStatusBar from '../common/myStatusBar.js';
 import TopNavigationBar from '../common/topNavBar.js';
 import DrawerMenu from '../common/drawerMenu.js';
-import EditProfile from './editProfile.js';
+import SingleMemly from './singleMemly.js';
 
-class EditProfilePageContainer extends Component {
+class SingleMemlyContainer extends Component {
   constructor (props) {
     super(props);
     this.state = { isOpen: false }; 
@@ -33,7 +33,7 @@ class EditProfilePageContainer extends Component {
           <View style ={ styles.container2}>
             <TopNavigationBar showSideMenu={this.showSideMenu.bind(this)} />
             <View style={ styles.container1 }>
-              <EditProfile hideSideMenu= {this.hideSideMenu.bind(this)} firstName= {this.props.firstName} lastName={this.props.lastName} email={this.props.email} gender={this.props.gender} birthday={this.props.birthday} picture={this.props.picture} />
+              <SingleMemly memly={this.props.currentMemly}/>
             </View>
           </View>
       </SideMenu>
@@ -54,14 +54,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = function(state) {
   return {
     ...state,
-
-    // firstName: state.loginReducer.first_name,
-    // lastName: state.loginReducer.last_name,
-    // email: state.loginReducer.email,
-    // gender: state.loginReducer.gender,
-    // birthday: state.loginReducer.birthday,
-    // picture: state.loginReducer.picture.data.url
+    currentMemly: state.currentMemlyReducer.currentMemly
   };
 };
 
-export default connect(mapStateToProps)(EditProfilePageContainer);
+export default connect(mapStateToProps)(SingleMemlyContainer);

@@ -12,6 +12,7 @@ import MainPage from './components/mainComponent/mainPageCont.js';
 import ProfilePage from './components/profileComponent/profilePageCont.js';
 import MyMemliesPage from './components/myMemliesComponent/myMemliesPageCont.js';
 import EditProfilePage from './components/editProfileComponent/editProfilePageCont.js';
+import SingleMemlyPage from './components/memlys/singleMemlyCont.js';
 
 // *** Import Reducers *** //
 import routesReducer from './redux/routesReducer.js';
@@ -48,6 +49,7 @@ export default class memly extends Component {
             <Scene key='LoginPage' component={LoginPage} title='LoginPage' initial={true} />
             <Scene key='MainPage' component={MainPage} title='MainPage' />
             <Scene key='ProfilePage' component={ProfilePage} title='ProfilePage' />
+            <Scene key='SingleMemlyPage' component={SingleMemlyPage} title='SingleMemlyPage' />
             <Scene key='MyMemliesPage' component={MyMemliesPage} title='MyMemliesPage' />
             <Scene key='EditProfilePage' component={EditProfilePage} title='EditProfilePage' />
           </Scene>

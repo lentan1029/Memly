@@ -24,9 +24,8 @@ export default class MemlyCallout extends Component {
   render() {
     var context = this;
     var _handlingPress = function() {
-      alert(context.props);
       context.props._handlingPress(context.props.memly);
-      Actions.LoginPage();
+      Actions.SingleMemlyPage();
     };
 
     return (
