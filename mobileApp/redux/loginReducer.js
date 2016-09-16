@@ -32,7 +32,7 @@ export default function loginReducer(state = loginInitialState, action) {
       if (action.userInfo[key]) {
         res[key] = action.userInfo[key];
       }
-    };
+    }
     return res;
   }
 

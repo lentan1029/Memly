@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import SideMenu from 'react-native-side-menu';
 import { connect } from 'react-redux';
 
-import MapComponent from '../MapComponent/MapComponent.js';
+import MapComponent from '../mapComponent/mapComponent.js';
 import memlysReducer from '../../redux/memlysReducer.js';
 import MyStatusBar from '../common/myStatusBar.js';
 import TopNavigationBar from '../common/topNavBar.js';
