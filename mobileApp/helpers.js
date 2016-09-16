@@ -18,6 +18,6 @@ export const getNearby = function(lat, lng) {
 };
 
 export const registerWithServer = function(graphRes) {
-  var url = new URL(AWS_SERVER + '/api/');
+  // var url = new URL(AWS_SERVER + '/api/');
   //
 };
