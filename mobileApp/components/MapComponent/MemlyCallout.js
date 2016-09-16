@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {StyleSheet, View, Text, Image, Animate, LayoutAnimation, TouchableHighlight} from 'react-native';
+import {Actions, ActionConst } from 'react-native-router-flux';
 
 export default class MemlyCallout extends Component {
   constructor(props) {
@@ -22,12 +23,12 @@ export default class MemlyCallout extends Component {
 
   render() {
     var _handlingPress = function() {
-      alert('what');
+      Actions.LoginPage();
     };
 
     return (
 
-      <TouchableHighlight style = {{height: 80, width: 80, backgroundColor: 'orange'}} underlayColor="transparent" onSelect = {_handlingPress}>
+      <TouchableHighlight style = {{height: 100, width: 100}} underlayColor="transparent" onPress = {_handlingPress}>
         <View style={styles.container}>
           <Image 
             source={{uri: this.props.memly.user.avatarUrl}}

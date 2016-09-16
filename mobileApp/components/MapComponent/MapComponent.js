@@ -46,12 +46,6 @@ class MapComponent extends Component {
     alert(JSON.stringify(this.props));
     // this.refs.map.animateToCoordinate(this.props.currentUserLocation, 200);
   }
-  
-  flipExpand() {
-    alert('what');
-    // LayoutAnimation.spring();
-    // this.setState({w: this.state.w+20, h: this.state.h+20});
-  }
 
   render() {
     var context = this;
@@ -69,9 +63,9 @@ class MapComponent extends Component {
             <MapView.Marker
               key={i}
               coordinate={memly.location}
-              calloutOffset= {{ x: 10, y: -100 }}
+              calloutOffset= {{ x: -5, y: 0 }}
             >
-              <MapView.Callout style = {{height: 100, width: 100, backgroundColor: 'black'}} tooltip>
+              <MapView.Callout style = {{height: 100, width: 100, borderRadius: 50, backgroundColor: 'black'}} tooltip>
                   <MemlyCallout memly = {memly}/>
               </MapView.Callout>
             </MapView.Marker>
