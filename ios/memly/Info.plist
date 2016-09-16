@@ -18,6 +18,7 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+<<<<<<< 67ecbe3f9ce46675c7c4a72e99cbf06058be14e5
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -53,6 +54,8 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+=======
+>>>>>>> mobile changes
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -62,6 +65,11 @@
 			</array>
 		</dict>
 	</array>
+<<<<<<< 67ecbe3f9ce46675c7c4a72e99cbf06058be14e5
+=======
+	<key>CFBundleVersion</key>
+	<string>1</string>
+>>>>>>> mobile changes
 	<key>FacebookAppID</key>
 	<string>570759623110276</string>
 	<key>FacebookDisplayName</key>
@@ -73,6 +81,26 @@
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
 	</array>
+<<<<<<< 67ecbe3f9ce46675c7c4a72e99cbf06058be14e5
+=======
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string></string>
+>>>>>>> mobile changes
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
@@ -84,5 +112,22 @@
 		<string>Octicons.ttf</string>
 		<string>Zocial.ttf</string>
 	</array>
+<<<<<<< 67ecbe3f9ce46675c7c4a72e99cbf06058be14e5
+=======
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+>>>>>>> mobile changes
 </dict>
 </plist>

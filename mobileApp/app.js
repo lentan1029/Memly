@@ -18,6 +18,7 @@ import memlysReducer from './redux/memlysReducer.js';
 import mapReducer from './redux/mapReducer.js';
 import loginReducer from './redux/loginReducer.js';
 
+
 const reducers = combineReducers({
   routesReducer,
   memlysReducer,
@@ -44,6 +45,7 @@ export default class memly extends Component {
             <Scene key='MainPage' component={MainPage} title='MainPage' />
             <Scene key='ProfilePage' component={ProfilePage} title='ProfilePage' />
             <Scene key='MyMemliesPage' component={MyMemliesPage} title='MyMemliesPage' />
+
           </Scene>
         </RouterWithRedux>
       </Provider>
