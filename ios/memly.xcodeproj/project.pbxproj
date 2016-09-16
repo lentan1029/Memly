@@ -357,6 +357,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2CA31F701D8B50FF0041D642 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2CA31F851D8B50FF0041D642 /* libRNVectorIcons.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2CA31F721D8B50FF0041D642 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2CA31F781D8B50FF0041D642 /* libRCTFBLogin.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4606D6AA8D0646ADA216838D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
