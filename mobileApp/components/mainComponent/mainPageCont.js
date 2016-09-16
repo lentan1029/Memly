@@ -20,7 +20,6 @@ class MainPageContainer extends Component {
     this.setState({ isOpen: true });
   }
 
-
   hideSideMenu () {
     this.setState({ isOpen: false });
   }

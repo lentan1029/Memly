@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
 import {connect} from 'react-redux';
 
 import * as LoginActions from '../../redux/loginReducer.js';
-import { getNearby } from '../../helpers';
+import { getNearby } from '../helpers';
 
 const FBSDK = require('react-native-fbsdk');
 const {
@@ -56,10 +60,10 @@ class LoginPage extends Component {
             }
           }
           onLogoutFinished={() => alert('logout.')}/>
-          <Text onPress={ 
+          <Text onPress={
             () => {
               getNearby(37.774929, -122.419416)
-              .then((text)=>(console.log(text)))
+              .then((data)=>(console.log(data)))
               .catch((err)=>(console.log('error:', err)));
             }
           }>whattt</Text>
