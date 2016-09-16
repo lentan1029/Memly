@@ -6,7 +6,7 @@ import { StyleSheet, Text, View} from 'react-native';
 import { Router, Scene, Actions, ActionConst, DefaultRenderer } from 'react-native-router-flux';
 
 //*** Import Major Containers ***//
-import MapComponent from './components/MapComponent/MapComponent.js';
+import MapComponent from './components/mapComponent/mapComponent.js';
 import LoginPage from './components/loginComponent/loginPage.js';
 import MainPage from './components/mainComponent/mainPageCont.js';
 import ProfilePage from './components/profileComponent/profilePageCont.js';

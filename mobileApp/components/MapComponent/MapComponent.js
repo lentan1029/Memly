@@ -9,8 +9,8 @@ import MapView from 'react-native-maps';
 import Ionicons from 'react-native-vector-icons/Ionicons.js';
 import * as MapActions from '../../redux/mapReducer.js';
 
-import CustomMarker from './CustomMarker.js';
-import MemlyCallout from './MemlyCallout.js';
+import CustomMarker from './customMarker.js';
+import MemlyCallout from './memlyCallout.js';
 
 class MapComponent extends Component {
   constructor(props) {

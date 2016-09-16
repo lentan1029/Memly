@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
+
+import { registerWithServer, getNearby } from '../../helpers';
+
 import {connect} from 'react-redux';
+import { updateUser } from '../../redux/loginReducer'; //action creator
 
 import * as LoginActions from '../../redux/loginReducer.js';
-import { getNearby } from '../../helpers';
+
 
 const FBSDK = require('react-native-fbsdk');
 const {
@@ -14,10 +22,9 @@ const {
   GraphRequestManager
 } = FBSDK;
 
-class LoginPage extends Component {
+class LoginPageContainer extends Component {
   render() {
     const context = this;
-
     return (
       <View style={styles.container}>
         <LoginButton
@@ -45,7 +52,7 @@ class LoginPage extends Component {
                         },
                         function(err, res) {
                           console.log('Graph err/result is:', err, res);
-                          context.props.dispatch(LoginActions.saveUser(res));
+                          context.props.dispatch(updateUser(res));
                         }
                       )
                     ).start();
@@ -56,25 +63,26 @@ class LoginPage extends Component {
             }
           }
           onLogoutFinished={() => alert('logout.')}/>
-          <Text onPress={ 
+          <Text onPress={
             () => {
               getNearby(37.774929, -122.419416)
-              .then((text)=>(console.log(text)))
+              .then((data)=>(console.log(data)))
               .catch((err)=>(console.log('error:', err)));
             }
-          }>whattt</Text>
+          }>{this.props.name}</Text>
       </View>
     );
   }
 }
 
 const mapStateToProps = function(state) {
+  console.log('state:', state);
   return {
-    userInfo: state.loginReducer.userInfo
+    ...state.loginReducer
   };
 };
 
-export default connect(mapStateToProps)(LoginPage);
+export default connect(mapStateToProps)(LoginPageContainer);
 
 const styles = StyleSheet.create({
   container: {
