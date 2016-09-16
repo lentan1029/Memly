@@ -11,9 +11,6 @@ import TopNavigationBar from '../common/topNavBar.js';
 import DrawerMenu from '../common/drawerMenu.js';
 import Profile from './profile.js';
 
-import userReducer from '../../redux/userReducer.js';
-import * as userActions from '../../redux/userReducer.js';
-
 class ProfilePageContainer extends Component {
   constructor (props) {
     super(props);
@@ -28,48 +25,6 @@ class ProfilePageContainer extends Component {
     this.setState({ isOpen: false });
   }
 
-  componentWillMount() {
-    this.props.dispatch(userActions.updateUserFacebook({isLoggedIn: true}));
-    this.props.dispatch(userActions.updateMemlyCount([{}]));
-  }
-
-  DateParser(date) {
-    console.log('checking date format', date);
-    var dateArray = date.split('/');
-    var month = Number(dateArray[0]);
-    if (month === 1) {
-      month = 'January';
-    } else if (month === 2) {
-      month = 'February';
-    } else if (month === 3) {
-      month = 'March';
-    } else if (month === 4) {
-      month = 'April';
-    } else if (month === 5) {
-      month = 'May';
-    } else if (month === 6) {
-      month = 'June';
-    } else if (month === 7) {
-      month = 'July';
-    } else if (month === 8) {
-      month = 'August';
-    } else if (month === 9) {
-      month = 'September';
-    } else if (month === 10) {
-      month = 'October';
-    } else if (month === 11) {
-      month = 'November';
-    } else if (month === 12) {
-      month = 'December';
-    }
-
-    var day = Number(dateArray[1]);
-    var year = dateArray[2];
-
-    var dateFormatted = `${month} ${day}, ${year}`;
-    return dateFormatted;
-  }
-
   render() {
     const menu = <DrawerMenu hideSideMenu={this.hideSideMenu.bind(this)} />;
     return (
@@ -78,7 +33,7 @@ class ProfilePageContainer extends Component {
           <View style ={ styles.container2}>
             <TopNavigationBar showSideMenu={this.showSideMenu.bind(this)} />
             <View style={ styles.container1 }>
-              <Profile user = {this.props.user} userFacebook = {this.props.userFacebook} memlyCount={this.props.memlyCount} />
+              <Profile hideSideMenu= {this.hideSideMenu.bind(this)} firstName= {this.props.firstName} lastName={this.props.lastName} email={this.props.email} gender={this.props.gender} birthday={this.props.birthday} picture={this.props.picture} />
             </View>
           </View>
       </SideMenu>
@@ -92,8 +47,6 @@ const styles = StyleSheet.create({
   },
   container1: {
     flex: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   }
 });
@@ -102,11 +55,12 @@ const mapStateToProps = function(state) {
   return {
     ...state,
 
-    // isLoggedIn: state.userReducer.isLoggedIn,
-    // user: state.userReducer.user,
-    // userFacebook: state.userReducer.userFacebook,
-    // memlyCount: state.userReducer.memlyCount,
-    // birthday: state.userReducer.birthday,
+    firstName: state.loginReducer.first_name,
+    lastName: state.loginReducer.last_name,
+    email: state.loginReducer.email,
+    gender: state.loginReducer.gender,
+    birthday: state.loginReducer.birthday,
+    picture: state.loginReducer.picture.data.url
   };
 };
 
