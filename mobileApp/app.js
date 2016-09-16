@@ -22,6 +22,7 @@ import userReducer from './redux/userReducer.js';
 import currentMemlyReducer from './redux/currentMemlyReducer.js';
 
 const reducers = combineReducers({
+  userReducer,
   routesReducer,
   memlysReducer,
   currentMemlyReducer,

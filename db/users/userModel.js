@@ -73,7 +73,7 @@ userSchema.statics.findOrCreate = function(profile, cb) {
       // userObj.job = raw.work || '';
       // userObj.education = raw.education[raw.education.length - 1].school.name || '';
       // userObj.bio = raw.bio || '';
-      userObj.profilePhotoUrl = profile.photos[0].value;
+      userObj.profilePhotoUrl = profile.photos ? profile.photos[0].value : null;
       userObj.save(cb);
     } else {
       cb(err, result);
