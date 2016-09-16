@@ -6,10 +6,10 @@ import {
 } from 'react-native';
 import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
 
-import { registerWithServer, getNearby } from '../helpers';
+import { registerWithServer, getNearby } from '../../helpers';
 
 import {connect} from 'react-redux';
-import { updateUser } from '../redux/loginReducer'; //action creator
+import { updateUser } from '../../redux/loginReducer'; //action creator
 
 import * as LoginActions from '../../redux/loginReducer.js';
 
@@ -76,6 +76,7 @@ class LoginPageContainer extends Component {
 }
 
 const mapStateToProps = function(state) {
+  console.log('state:', state);
   return {
     ...state.loginReducer
   };
