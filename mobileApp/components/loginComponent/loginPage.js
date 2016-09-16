@@ -50,7 +50,8 @@ class LoginPageContainer extends Component {
                           updateFacebookInfo(res) //update server with fb info, returns id
                           .then((found) => { 
                             context.props.dispatch(updateFacebookUserID(found._id));
-                            updateUserFacebook(res);
+                            console.log('what are we dispatching to updateuserfacebook', found);
+                            context.props.dispatch(updateUserFacebook(found));
                             // updateProfile
                           });
                         }
