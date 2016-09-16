@@ -1,16 +1,13 @@
 'use strict';
 
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity
-} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {connect} from 'react-redux';
+
+
 import MapView from 'react-native-maps';
 import Ionicons from 'react-native-vector-icons/Ionicons.js';
-import * as MapActions from './mapReducer.js';
-import {connect} from 'react-redux';
+import * as MapActions from '../../redux/mapReducer.js';
 
 import MemlyCallout from './MemlyCallout.js';
 
