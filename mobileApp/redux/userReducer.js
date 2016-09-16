@@ -37,10 +37,10 @@ export function updateUserLocation (userLocation) {
   };
 }
 
-export function updateUserFacebook (userInfo) {
+export function updateUserFacebook (userFacebook) {
   return {
     type: 'UPDATE_USER_FACEBOOK',
-    userInfo,
+    userFacebook,
   };
 }
 

@@ -22,6 +22,7 @@ import userReducer from './redux/userReducer.js';
 
 
 const reducers = combineReducers({
+  userReducer,
   routesReducer,
   memlysReducer,
   mapReducer,
