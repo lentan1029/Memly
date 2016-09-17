@@ -10,6 +10,8 @@ import MyStatusBar from '../common/myStatusBar.js';
 import TopNavigationBar from '../common/topNavBar.js';
 import DrawerMenu from '../common/drawerMenu.js';
 import EditProfile from './editProfile.js';
+import * as userReducer from '../../redux/userReducer';
+import { updateFacebookInfo } from '../../helpers';
 
 class EditProfilePageContainer extends Component {
   constructor (props) {
@@ -25,6 +27,14 @@ class EditProfilePageContainer extends Component {
     this.setState({ isOpen: false });
   }
 
+  updateUserData (user) {
+    console.log(user);
+    updateFacebookInfo(user).then((found) => {
+      console.log(found);
+      this.props.dispatch(userReducer.updateUserFacebook(found));   
+    });
+  }
+
   render() {
     const menu = <DrawerMenu hideSideMenu={this.hideSideMenu.bind(this)} />;
     return (
@@ -33,7 +43,7 @@ class EditProfilePageContainer extends Component {
           <View style ={ styles.container2}>
             <TopNavigationBar showSideMenu={this.showSideMenu.bind(this)} />
             <View style={ styles.container1 }>
-              <EditProfile hideSideMenu= {this.hideSideMenu.bind(this)} name= {this.props.name} bio={this.props.bio} email={this.props.email} gender={this.props.gender} birthday={this.props.birthday} picture={this.props.picture} />
+              <EditProfile user={this.props.user} submitInfo= {this.updateUserData.bind(this)} hideSideMenu= {this.hideSideMenu.bind(this)} />
             </View>
           </View>
       </SideMenu>
@@ -54,13 +64,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = function(state) {
   return {
     ...state,
-
-    name: state.userReducer.user.name,
-    email: state.userReducer.user.email,
-    gender: state.userReducer.user.gender,
-    birthday: state.userReducer.user.birthday,
-    picture: state.userReducer.user.profilePhotoUrl,
-    bio: state.userReducer.user.bio
+    user: state.userReducer.user
   };
 };
 

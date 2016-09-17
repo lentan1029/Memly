@@ -11,7 +11,7 @@ export function updateFacebookUserID (facebookUserID) {
 //====== initial login state ====== //
 
 const loginInitialState = {
-  facebookUserID: 'meh'
+  facebookUserID: 'null'
 };
 
 //========= reducer to connect to component ====//
