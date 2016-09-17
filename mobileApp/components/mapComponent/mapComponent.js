@@ -56,7 +56,6 @@ class MapComponent extends Component {
   }
 
   centerOnUser () {
-    alert(JSON.stringify(this.props));
     this.refs.map.animateToCoordinate(this.props.currentUserLocation, 200);
   }
 
@@ -66,20 +65,17 @@ class MapComponent extends Component {
 
   takePicture(cb) {
     this.camera.capture()
-      .then((data) => {
-        console.log('data.path is', data.path);
-        doUpload(data.path, this.props.facebookUserID, cb);
-      })
-      .catch(err => console.error(err));
+    .then((data) => {
+      doUpload(data.path, this.props.facebookUserID, cb);
+    })
+    .catch(err => console.error(err));
   }
 
   makeComment(text) {
     this.setState({comment: text});
-    console.log(this.state.comment);
   }
   makeLocation(text) {
     this.setState({place: text});
-    console.log(this.state.place);
   }
 
   render() {
@@ -136,7 +132,6 @@ class MapComponent extends Component {
                 var context = this;
                 this.setModalVisible(!this.state.modalVisible);
                 this.takePicture( (fileData) => {
-                  console.log('sendmemlyisbeingcalled', context.props.user);
                   sendMemly({ //user, comment, place, latitude, longitude //user has: userID, username, profilePhotoUrl
                     user: context.props.user,
                     id: context.props.user._id,
