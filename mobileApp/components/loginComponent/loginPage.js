@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {StyleSheet, Text, View, DeviceEventEmitter} from 'react-native';
 import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
-import { updateFacebookInfo, getNearby, doUpload } from '../../helpers';
+import { populateFacebookInfo, getNearby, doUpload } from '../../helpers';
 
 import { connect } from 'react-redux';
 
@@ -59,7 +59,7 @@ class LoginPageContainer extends Component {
                         },
                         function(err, res) {
                           console.log('Graph err/result is:', err, res);
-                          updateFacebookInfo(res) //update server with fb info, returns id
+                          populateFacebookInfo(res) //update server with fb info, returns id
                           .then((found) => { 
                             context.props.dispatch(updateFacebookUserID(found._id));
                             console.log('what are we dispatching to updateuserfacebook', found);

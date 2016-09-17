@@ -73,6 +73,24 @@ export const updateFacebookInfo = function(res) {
   });
 };
 
+export const populateFacebookInfo = function(res) {
+  console.log('facebook res is:', JSON.stringify(res));
+  var url = AWS_SERVER + '/mobile/user/edit/populateinfo/';
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(res)
+  })
+  .then((res) => (res.json()))
+  .then((found) => {
+    console.log(found);
+    return found;
+  });
+};
+
 export const doUpload = function(filepath, facebookUserID, cb) {
   console.log('filepath is', filepath);
   let files = [
