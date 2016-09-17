@@ -16,18 +16,18 @@ const {
   GraphRequestManager
 } = FBSDK;
 
-import Camera from 'react-native-camera';
+// import Camera from 'react-native-camera';
 
+
+/*<Camera
+  ref={(cam) => {
+    this.camera = cam;
+  }}
+  style={styles.preview}
+  aspect={Camera.constants.Aspect.fill}>
+</Camera>*/
 
 class LoginPageContainer extends Component {
-  takePicture() {
-    this.camera.capture()
-      .then((data) => {
-        console.log('data.path is', data.path);
-        doUpload(data.path, this.props.facebookUserID);
-      })
-      .catch(err => console.error(err));
-  }
 
   render() {
     const context = this;
@@ -83,16 +83,6 @@ class LoginPageContainer extends Component {
               .catch((err)=>(console.log('error:', err)));
             }
           }>{this.props.facebookUserID}</Text></View>
-          <View>
-            <Camera
-              ref={(cam) => {
-                this.camera = cam;
-              }}
-              style={styles.preview}
-              aspect={Camera.constants.Aspect.fill}>
-              <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[TAKE PIC + UPLOAD]</Text>
-            </Camera>
-          </View>
       </View>
     );
   }
