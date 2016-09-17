@@ -14,10 +14,11 @@ var Profile = (props) => (
     </View>
 
     <View style={styles.infoContainer}>
-      <Text style={styles.info}>Name: {props.firstName + ' ' + props.lastName}</Text>
+      <Text style={styles.info}>Name: {props.name}</Text>
       <Text style={styles.info}>Email: {props.email}</Text>
       <Text style={styles.info}>Gender: {props.gender}</Text>
       <Text style={styles.info}>Birthday: {props.birthday}</Text>
+      <Text style={styles.info}>About Me: {props.bio}</Text>
     </View>
 
     <View style={styles.buttonLocation}>
