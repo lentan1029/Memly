@@ -341,6 +341,48 @@ app.post('/mobile/user/edit/profileinfo/',
   }
 );
 
+app.post('/mobile/user/edit/populateinfo/', 
+  findOrCreateMobileUserMiddleware,
+  function(req, res) {
+    //console.log('i hit my post request for edit profile', req.body);
+    var userID = req.body.id;
+    //console.log('whats in my editProfile post request ------>', req.body);
+    var name = req.body.name || 'no name';
+    var email = req.body.email || 'no email';
+    var birthday = req.body.birthday || 'no birthday';
+    var gender = req.body.gender || 'no gender';
+    var bio = req.body.bio || 'no bio';
+    var profilePhotoUrl = req.body.picture.data.url || 'http://www.sourcecertain.com/img/Example.png';
+
+    User.findOne({_id: userID}).exec(function(err, found) {
+      if (err) {
+        res.status(404).send('couldnt find the model ur looking for');
+      }
+      if (found) {
+        console.log('checking found in editProfile', found);
+        found.name = found.name || name;
+        found.email = found.email || email;
+        found.birthday = found.birthday || birthday;
+        found.gender = found.gender || gender;
+        found.bio = found.bio || bio;
+        found.profilePhotoUrl = found.profilePhotoUrl || profilePhotoUrl;
+        console.log('SOMETHING SHOULD BE FOUND', found);
+        found.save((function(err, User) {
+          if (err) {
+            //console.log('am i hitting error in edit profile???????');
+            res.status(500).send(err);
+          }
+          //console.log('i successfully edited my profile and just saved ----->');
+          res.status(200).send(found);
+        }));
+      } else {
+        res.redirect('Error occured, no errors and no data returned.');
+      }
+    });
+
+  }
+);
+
 app.post('/mobile/user/createMemly', 
   findOrCreateMobileUserMiddleware,
   function(req, res) {
