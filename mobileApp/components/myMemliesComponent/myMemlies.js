@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: 'lightblue',
     borderWidth: 5,
-    marginTop: 15
+    marginTop: 15,
+    resizeMode: 'contain'
   },
   imageContainer: {
     alignItems: 'center',

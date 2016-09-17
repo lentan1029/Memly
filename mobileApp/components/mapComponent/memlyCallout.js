@@ -34,7 +34,7 @@ export default class MemlyCallout extends Component {
         <View style={styles.container}>
           <Image 
             source={{uri: this.props.memly.media.url}}
-            style={{borderRadius: 50, alignSelf: 'center', opacity: 1, resizeMode: 'contain', width: this.state.w-3, height: this.state.h-3}} />
+            style={{borderRadius: 50, alignSelf: 'center', opacity: 1, resizeMode: 'cover', width: this.state.w - 3, height: this.state.h - 3}} />
         </View>
       </TouchableHighlight>
       );
@@ -44,7 +44,7 @@ export default class MemlyCallout extends Component {
 const styles = StyleSheet.create({
   container: {
     borderColor: 'black',
-    borderWidth:2,
+    borderWidth: 2,
     borderRadius: 100,
     flexDirection: 'column',
     alignSelf: 'center',

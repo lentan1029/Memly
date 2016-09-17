@@ -4,19 +4,17 @@ import React, { Component } from 'react';
 import Button from 'react-native-button';
 import {StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Modal, TextInput, Image, Dimensions} from 'react-native';
 import {connect} from 'react-redux';
-
+import axios from 'axios';
 import MapView from 'react-native-maps';
+import Ionicons from 'react-native-vector-icons/Ionicons.js';
+import Camera from 'react-native-camera';
+
 import CustomMarker from './customMarker.js';
 import MemlyCallout from './memlyCallout.js';
-import Ionicons from 'react-native-vector-icons/Ionicons.js';
-
-import Camera from 'react-native-camera';
 
 import * as MapActions from '../../redux/mapReducer.js';
 import * as CurrentMemlyActions from '../../redux/currentMemlyReducer.js';
 import * as MemlysActions from '../../redux/memlysReducer.js';
-
-import axios from 'axios';
 
 import { doUpload, sendMemly } from '../../helpers';
 
