@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import Button from 'react-native-button';
-import {StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Modal, TextInput, Image} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Modal, TextInput, Image, Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 
 import MapView from 'react-native-maps';
@@ -18,9 +18,9 @@ import * as MemlysActions from '../../redux/memlysReducer.js';
 
 import axios from 'axios';
 
-import Camera from 'react-native-camera';
-
 import { doUpload, sendMemly } from '../../helpers';
+
+let { width, height } = Dimensions.get('window');
 
 class MapComponent extends Component {
   constructor(props) {
@@ -75,11 +75,18 @@ class MapComponent extends Component {
       .catch(err => console.error(err));
   }
 
+  makeComment(text) {
+    this.setState({comment: text});
+    console.log(this.state.comment);
+  }
+  makeLocation(text) {
+    this.setState({place: text});
+    console.log(this.state.place);
+  }
 
   render() {
     var context = this;
     
-
     return (
       <View style={styles.container}>
         <MapView
@@ -116,36 +123,38 @@ class MapComponent extends Component {
           onRequestClose={() => { alert('Modal has been closed.'); } }
           >
          <View style={{marginTop: 22}}>
-          <View style={{height: 600, width: 400, flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
-            <Text style={styles.memlyHeader}>Memlify</Text>  
-            <TextInput style={styles.input} placeholder = 'Title'/>
+          <View style={{height: height-22, width: width, flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'space-around'}}>
+            <View style={{justifyContent: 'center', alignItems:'center', width: width}}>
+              <Text style= {styles.memlyHeader}>Memlify</Text>  
+            </View>
             <Camera ref={(cam) => {
               this.camera = cam;
             }}
             style={styles.cameraView} aspect={Camera.constants.Aspect.fill}></Camera>
-
-            <TextInput style={styles.input} multiline={true} placeholder = 'Comment'/> 
-            <TextInput placeholder = 'Location' style={styles.input} /> 
-            <Button containerStyle = {styles.modalButtonContainer} style={styles.modalButton} onPress={() => {
-              var context = this;
-              this.setModalVisible(!this.state.modalVisible);
-              this.takePicture( (fileData) => {
-                console.log('sendmemlyisbeingcalled');
-                sendMemly({ //user, comment, place, latitude, longitude //user has: userID, username, profilePhotoUrl
-                  user: context.props.user,
-                  id: context.props.user._id,
-                  comment: 'some comment',
-                  place: 'a place',
-                  latitude: context.props.currentUserLocation.latitude,
-                  longitude: context.props.currentUserLocation.longitude
-                }, JSON.parse(fileData).path);
-              });
-            }}> Take a Photo
-            </Button>
-            <Button containerStyle = {styles.modalButtonContainer} style={styles.modalButton} onPress={() => {
-              this.setModalVisible(!this.state.modalVisible);
-            }}>Cancel
-            </Button>
+            <TextInput onChangeText={this.makeComment.bind(this)} style={styles.input} multiline={true} placeholder = 'Comment'/> 
+            <TextInput placeholder = 'Location' onChangeText={this.makeLocation.bind(this)} style={styles.input} />
+            <View style={styles.buttonHolder}>
+              <Button containerStyle = {styles.modalButtonContainer} style={styles.modalButton} onPress={() => {
+                var context = this;
+                this.setModalVisible(!this.state.modalVisible);
+                this.takePicture( (fileData) => {
+                  console.log('sendmemlyisbeingcalled', context.props.user);
+                  sendMemly({ //user, comment, place, latitude, longitude //user has: userID, username, profilePhotoUrl
+                    user: context.props.user,
+                    id: context.props.user._id,
+                    comment: context.state.comment,
+                    place: context.state.place,
+                    latitude: context.props.currentUserLocation.latitude,
+                    longitude: context.props.currentUserLocation.longitude
+                  }, JSON.parse(fileData).path);
+                });
+              }}> Take a Photo
+              </Button>
+              <Button containerStyle = {styles.modalButtonContainer} style={styles.modalButton} onPress={() => {
+                this.setModalVisible(!this.state.modalVisible);
+              }}>Cancel
+              </Button>
+            </View>
             </View>
           </View>
         </Modal>
@@ -160,15 +169,15 @@ class MapComponent extends Component {
           </View>
         </TouchableOpacity>
       </View>
-      </View>
+    </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   cameraView: {
-    height: 500,
-    width: 500,
+    height: 400,
+    width: width,
     justifyContent: 'center'
   },
   container: {
@@ -257,10 +266,9 @@ const styles = StyleSheet.create({
   },
 
   modalButtonContainer: {
-    padding: 10,
-    height: 45,
-    width: 150,
-    margin: 10,
+    padding: 12,
+    height: 50,
+    width: width/2 - 25,
     overflow: 'hidden',
     borderRadius: 4,
     backgroundColor:
@@ -269,6 +277,13 @@ const styles = StyleSheet.create({
   modalButton: {
     fontSize: 20,
     color: 'white'
+  },
+  buttonHolder: {
+    height: 50,
+    marginBottom: 10,
+    width: width,
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   }
 });
 
