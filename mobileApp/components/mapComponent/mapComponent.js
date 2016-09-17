@@ -1,7 +1,8 @@
 'use strict';
 
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Modal, TextInput} from 'react-native';
+import Button from 'react-native-button';
+import {StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Modal, TextInput, Image} from 'react-native';
 import {connect} from 'react-redux';
 
 import MapView from 'react-native-maps';
@@ -34,41 +35,7 @@ class MapComponent extends Component {
   }
   // Track the user's location when component is done rendering
   componentDidMount () {
-
-    setInterval(() => {
-      console.log('Polling for nearby markers...');
-      axios.get('/api/nearby', {
-        params: {
-          latitude: this.props.currentUserLocation.latitude,
-          longitude: this.props.currentUserLocation.longitude
-        }
-      })
-      .then((response) => {
-        // 'response.data' is an array of memlys to be displayed
-        console.log(response.data, 'data from updateMemly\'s function');
-
-        // let { memlys, memlyIdStorage } = this.state;
-
-        // If our memlys storage does not yet contain the new memly,
-        // add the new memly to our storage
-        response.data.forEach((memly) => {
-          if (!this.props.memlyIdStorage[memly._id]) {
-            console.log('!memlyIdStorage');
-              // memlyIdStorage[memly._id] = true;
-            this.props.dispatch(memlysActions.addMemly(memly));
-            // memlys.push(memly);
-          }
-        });
-
-        // this.setState({ memlys, memlyIdStorage });
-        // console.log(this.state.memlys);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }, 5000);
-
-
+    
     navigator.geolocation.getCurrentPosition(
       (position) => {
         var startPosition = {longitude: position.longitude, latitude: position.latitude};
@@ -87,12 +54,6 @@ class MapComponent extends Component {
     navigator.geolocation.clearWatch(this.watchID);
   }
 
-  updateMemlys() {
-
-    console.log('updating memlys');
-    
-  }
-
   centerOnUser () {
     alert(JSON.stringify(this.props));
     this.refs.map.animateToCoordinate(this.props.currentUserLocation, 200);
@@ -101,6 +62,8 @@ class MapComponent extends Component {
   _handlingPress(memly) {
     this.props.dispatch(CurrentMemlyActions.updateCurrentMemly(memly));
   }
+
+
 
   render() {
     var context = this;
@@ -140,20 +103,22 @@ class MapComponent extends Component {
           onRequestClose={() => { alert("Modal has been closed."); } }
           >
          <View style={{marginTop: 22}}>
-          <View style={styles.container, {flexDirection: 'column', alignItems: 'center'}}>
+          <View style={{height: 600, width: 400, flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
             <Text style={styles.memlyHeader}>Memlify</Text>  
-              <TextInput style={styles.input}  placeholder = 'Title'/> 
-              <TextInput style={styles.input} multiline={true} placeholder = 'Comment'/> 
-              <TextInput placeholder = 'Location' style={styles.input} /> 
-
-            <TouchableHighlight onPress={() => {
+            <TextInput style={styles.input}  placeholder = 'Title'/>
+            <Image style={{height: 300, width: 300}}/> 
+            <TextInput style={styles.input} multiline={true} placeholder = 'Comment'/> 
+            <TextInput placeholder = 'Location' style={styles.input} /> 
+            <Button containerStyle = {styles.modalButtonContainer} style={styles.modalButton} onPress={() => {
               this.setModalVisible(!this.state.modalVisible);
-            }}>
-              <Text>Hide Modal</Text>
-            </TouchableHighlight>
-
+            }}> Take a Photo
+            </Button>
+            <Button containerStyle = {styles.modalButtonContainer} style={styles.modalButton} onPress={() => {
+              this.setModalVisible(!this.state.modalVisible);
+            }}>Cancel
+            </Button>
+            </View>
           </View>
-         </View>
         </Modal>
 
         <TouchableOpacity activeOpacity = {0.5} style = {styles.modalButton, {bottom: 20}} onPress={() => {
@@ -249,12 +214,27 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 5,
-    left: 100,
+    left: 20,
     height: 30,
-    width: 200,
+    width: 300,
     borderRadius: 10,
     backgroundColor: 'white',
     fontSize: 20
+  },
+
+  modalButtonContainer: {
+    padding: 10,
+    height: 45,
+    width: 150,
+    margin: 10,
+    overflow: 'hidden',
+    borderRadius: 4,
+    backgroundColor:
+    '#0288D1'
+  },
+  modalButton: {
+    fontSize: 20,
+    color: 'white'
   }
 });
 

@@ -58,9 +58,10 @@ module.exports = function(app) {
 
   app.get('/api/nearby', function(req, res) {
     // Acknowledge current user location
+    console.log('getting api nearby');
     var userLocation = {
-      lat: parseFloat(req.query.latitude),
-      lng: parseFloat(req.query.lngitude)
+      latitude: parseFloat(req.query.latitude),
+      longitude: parseFloat(req.query.lngitude)
     };
 
     // Find any within 0.05 +/- lat and lng of current user location
