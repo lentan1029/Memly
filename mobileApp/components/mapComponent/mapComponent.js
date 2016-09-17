@@ -1,16 +1,22 @@
 'use strict';
 
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Modal, TextInput} from 'react-native';
 import {connect} from 'react-redux';
 
-
 import MapView from 'react-native-maps';
-import Ionicons from 'react-native-vector-icons/Ionicons.js';
-import * as MapActions from '../../redux/mapReducer.js';
-import * as CurrentMemlyActions from '../../redux/currentMemlyReducer.js';
 import CustomMarker from './customMarker.js';
 import MemlyCallout from './memlyCallout.js';
+import Ionicons from 'react-native-vector-icons/Ionicons.js';
+
+import * as MapActions from '../../redux/mapReducer.js';
+import * as CurrentMemlyActions from '../../redux/currentMemlyReducer.js';
+import * as MemlysActions from '../../redux/memlysReducer.js';
+
+import axios from 'axios';
+
+
+
 
 class MapComponent extends Component {
   constructor(props) {
@@ -18,12 +24,51 @@ class MapComponent extends Component {
     this.watchID = null;
     this.state = {
       w: 100,
-      h: 100
+      h: 100,
+      modalVisible: false,
     };
   }
 
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
   // Track the user's location when component is done rendering
   componentDidMount () {
+
+    setInterval(() => {
+      console.log('Polling for nearby markers...');
+      axios.get('/api/nearby', {
+        params: {
+          latitude: this.props.currentUserLocation.latitude,
+          longitude: this.props.currentUserLocation.longitude
+        }
+      })
+      .then((response) => {
+        // 'response.data' is an array of memlys to be displayed
+        console.log(response.data, 'data from updateMemly\'s function');
+
+        // let { memlys, memlyIdStorage } = this.state;
+
+        // If our memlys storage does not yet contain the new memly,
+        // add the new memly to our storage
+        response.data.forEach((memly) => {
+          if (!this.props.memlyIdStorage[memly._id]) {
+            console.log('!memlyIdStorage');
+              // memlyIdStorage[memly._id] = true;
+            this.props.dispatch(memlysActions.addMemly(memly));
+            // memlys.push(memly);
+          }
+        });
+
+        // this.setState({ memlys, memlyIdStorage });
+        // console.log(this.state.memlys);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }, 5000);
+
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
         var startPosition = {longitude: position.longitude, latitude: position.latitude};
@@ -42,9 +87,15 @@ class MapComponent extends Component {
     navigator.geolocation.clearWatch(this.watchID);
   }
 
+  updateMemlys() {
+
+    console.log('updating memlys');
+    
+  }
+
   centerOnUser () {
     alert(JSON.stringify(this.props));
-    // this.refs.map.animateToCoordinate(this.props.currentUserLocation, 200);
+    this.refs.map.animateToCoordinate(this.props.currentUserLocation, 200);
   }
 
   _handlingPress(memly) {
@@ -79,6 +130,42 @@ class MapComponent extends Component {
         <TouchableOpacity style={ styles.button } onPress={ this.centerOnUser.bind(this) }>
           <Ionicons name="md-locate" size={28} color="#0972e3" />
         </TouchableOpacity>
+        <View style={{marginTop: 22}}>
+        
+
+        <Modal
+          animationType={"slide"}
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => { alert("Modal has been closed."); } }
+          >
+         <View style={{marginTop: 22}}>
+          <View style={styles.container, {flexDirection: 'column', alignItems: 'center'}}>
+            <Text style={styles.memlyHeader}>Memlify</Text>  
+              <TextInput style={styles.input}  placeholder = 'Title'/> 
+              <TextInput style={styles.input} multiline={true} placeholder = 'Comment'/> 
+              <TextInput placeholder = 'Location' style={styles.input} /> 
+
+            <TouchableHighlight onPress={() => {
+              this.setModalVisible(!this.state.modalVisible);
+            }}>
+              <Text>Hide Modal</Text>
+            </TouchableHighlight>
+
+          </View>
+         </View>
+        </Modal>
+
+        <TouchableOpacity activeOpacity = {0.5} style = {styles.modalButton, {bottom: 20}} onPress={() => {
+          this.setModalVisible(true);
+        }}>
+          <View style={styles.modalButtonText}>
+            <Text >
+              Memlify
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
       </View>
     );
   }
@@ -112,7 +199,63 @@ const styles = StyleSheet.create({
     },
     borderRadius: 30
   },
+  modalButton: {
 
+    height: 40,
+    width: 200,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000000',
+    shadowOpacity: 0.8,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    },
+    backgroundColor: '#fff',
+    borderRadius: 30
+  },
+  modalButtonText: {
+    height: 40,
+    width: 200,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000000',
+    shadowOpacity: 0.8,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    },
+    backgroundColor: '#fff',
+    borderRadius: 30
+  },
+  memlyHeader: {
+    fontSize: 25,
+    height: 50
+  },
+  memlyTitle: {
+    height: 40,
+    width: 360,
+    fontSize: 20
+  },
+  memlyComment: {
+    height: 50,
+    width: 360,
+    fontSize: 20
+  },
+  memlyLocation: {
+    height: 40,
+    width: 360,
+    fontSize: 20
+  },
+  input: {
+    marginBottom: 5,
+    left: 100,
+    height: 30,
+    width: 200,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    fontSize: 20
+  }
 });
 
 
