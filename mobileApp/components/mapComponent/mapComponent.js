@@ -173,6 +173,14 @@ class MapComponent extends Component {
                   Memlify
                 </Text>  
               </View>
+              <TextInput 
+                placeholder = 'Comment...'
+                onChangeText={this.makeComment.bind(this)}
+                style={styles.input} />
+              <TextInput 
+                placeholder = 'Location' 
+                onChangeText={this.makeLocation.bind(this)} 
+                style={styles.input} />
               <Camera 
                 ref={(cam) => {
                   this.camera = cam;
@@ -180,14 +188,6 @@ class MapComponent extends Component {
                 style={styles.cameraView} 
                 aspect={Camera.constants.Aspect.fill}>
               </Camera>
-              <TextInput 
-                placeholder = 'Comment'
-                onChangeText={this.makeComment.bind(this)}
-                style={styles.input} />
-              <TextInput 
-                placeholder = 'Location' 
-                onChangeText={this.makeLocation.bind(this)} 
-                style={styles.input} />
               <View style={styles.buttonHolder}>
                 <Button 
                   style={styles.modalButton} 
@@ -313,11 +313,11 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 5,
-    left: 20,
-    height: 30,
-    width: 300,
-    borderRadius: 10,
-    backgroundColor: 'white',
+    height: 40,
+    width: width-20,
+    marginLeft: 10,
+    marginRight: 10,
+    backgroundColor: 'rgba(0,0,0,.05)',
     fontSize: 20
   },
 
@@ -345,7 +345,7 @@ const styles = StyleSheet.create({
     height: height-22,
     width: width,
     flexDirection: 'column', 
-    alignItems: 'flex-start', 
+    alignItems: 'center', 
     justifyContent: 'space-around'
   },
   modalHeaderContainer: {
