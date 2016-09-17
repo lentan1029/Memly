@@ -389,7 +389,31 @@ app.post('/mobile/user/createMemly',
     console.log('memlycreateendpoint being called', req.body);
     var mediaUrl = req.body.mediaUrl;
     // delete req.body.mediaUrl;
-    createAndSaveNewMemly(req, res, mediaUrl); //include user object in the res
+    User.findOne({_id: req.body.id}).exec(function(err, found) {
+      if (err) {
+        res.status(404).send('something went wrong');
+      }
+      if (found) {
+        //console.log('checking found in editProfile', found);
+        console.log('what is found memlys-------------->', found.memlys);
+        found.memlys.unshift(mediaUrl);
+        console.log('checking user memlys', found.memlys);
+
+        found.save((function(err, User) {
+          if (err) {
+            console.log('am i hitting error in edit profile???????');
+            res.status(404).send('something went wrong');
+          } else {
+            createAndSaveNewMemly(req, res, mediaUrl); //include user object in the res
+            console.log('i successfully edited my profile and just saved ----->', found);
+            res.status(202).send(found);
+          }
+        }));
+      } else {
+        console.log('couldnt find the user model ur looking for.');
+        res.status(203).send('didnt work as anticipated');
+      }
+    });
   }
 );
 

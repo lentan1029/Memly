@@ -11,10 +11,13 @@ import MemlyCallout from './memlyCallout.js';
 import Ionicons from 'react-native-vector-icons/Ionicons.js';
 import Camera from 'react-native-camera';
 
+
 import * as MapActions from '../../redux/mapReducer.js';
 import * as CurrentMemlyActions from '../../redux/currentMemlyReducer.js';
 import * as MemlysActions from '../../redux/memlysReducer.js';
+import * as userReducer from '../../redux/userReducer.js';
 
+import { AWS_SERVER } from '../../config';
 import { doUpload, sendMemly, getNearby } from '../../helpers';
 let { width, height } = Dimensions.get('window');
 
@@ -27,6 +30,23 @@ class MapComponent extends Component {
       h: 100,
       modalVisible: false,
     };
+  }
+
+  sendMemly (memly, mediaUrl) {
+    console.log('helpers sendmemly is being called', memly, mediaUrl);
+    var memly = {
+      ...memly,
+      mediaUrl: AWS_SERVER + '/' + mediaUrl
+    };
+    this.props.dispatch(userReducer.updateUserMemlies(memly.mediaUrl));
+    fetch(AWS_SERVER + '/mobile/user/createMemly', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(memly)
+    });
   }
 
   setModalVisible(visible) {
@@ -89,7 +109,7 @@ class MapComponent extends Component {
     this.setState({place: text});
   }
   createAndSendMemly(fileData) {
-    sendMemly({ //user, comment, place, latitude, longitude //user has: userID, username, profilePhotoUrl
+    this.sendMemly({ //user, comment, place, latitude, longitude //user has: userID, username, profilePhotoUrl
       user: this.props.user,
       id: this.props.user._id,
       comment: this.state.comment,
