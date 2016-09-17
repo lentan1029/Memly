@@ -1,4 +1,5 @@
 import { AWS_SERVER } from './config';
+var RNUploader = require('NativeModules').RNUploader;
 
 var Url = function(str) { //polyfill
   this.url = str;
@@ -14,7 +15,7 @@ Url.prototype.href = function() {
   res = res + '?' + this.searchParams[0][0] 
   + '=' + JSON.stringify(this.searchParams[0][1]);
 
-  for (var i = 0; i < this.searchParams.length; i++) {
+  for (var i = 1; i < this.searchParams.length; i++) {
     res = res + '&' + this.searchParams[i][0] + '=' + JSON.stringify(this.searchParams[i][1]);
   }
 
@@ -22,11 +23,10 @@ Url.prototype.href = function() {
   return res;
 };
 
-export const getNearby = function(lat, lng) {
+export const getNearby = function(latitude, longitude) {
   var url = new Url(AWS_SERVER + '/api/nearby');
   var params = {
-    lat: lat,
-    lng: lng
+    latitude, longitude
   };
   Object.keys(params).forEach(key => url.addParams(key, params[key]));
   var options = {
@@ -54,5 +54,39 @@ export const updateFacebookInfo = function(res) {
   .then((found) => {
     console.log(found);
     return found;
+  });
+};
+
+export const doUpload = function(filepath, facebookUserID) {
+  console.log('filepath is', filepath);
+  let files = [
+    {
+      name: 'picture',
+      filename: 'camera.jpg',
+      filepath: filepath,  // image from camera roll/assets library
+      filetype: 'image/jpeg',
+    }
+  ];
+
+  let opts = {
+    url: 'http://localhost:3000/mobile/user/uploadImage',
+    files: files, 
+    method: 'POST',
+    params: { 'id': facebookUserID },
+  };
+
+  RNUploader.upload( opts, (err, res) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    let status = res.status;
+    let responseString = res.data;
+    // let json = JSON.parse(responseString);
+
+    console.log('upload complete with status ' + status);
+    console.log('data received:', res.data);
+    // console.log('data received:', json);
   });
 };

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, DeviceEventEmitter} from 'react-native';
 import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
-import { updateFacebookInfo, getNearby } from '../../helpers';
+import { updateFacebookInfo, getNearby, doUpload } from '../../helpers';
 
 import { connect } from 'react-redux';
 
 import { updateFacebookUserID } from '../../redux/loginReducer'; //action creator
 import { updateUserFacebook } from '../../redux/userReducer';
-
 
 const FBSDK = require('react-native-fbsdk');
 const {
@@ -17,7 +16,19 @@ const {
   GraphRequestManager
 } = FBSDK;
 
+import Camera from 'react-native-camera';
+
+
 class LoginPageContainer extends Component {
+  takePicture() {
+    this.camera.capture()
+      .then((data) => {
+        console.log('data.path is', data.path);
+        doUpload(data.path, this.props.facebookUserID);
+      })
+      .catch(err => console.error(err));
+  }
+
   render() {
     const context = this;
     return (
@@ -64,14 +75,24 @@ class LoginPageContainer extends Component {
             }
           }
           onLogoutFinished={() => alert('logout.')}/>
-          <Text onPress={
+          <View><Text onPress={
             () => {
-              console.log('http://google.com');
+              // console.log('http://google.com');
               getNearby(37.774929, -122.419416)
-              .then((data)=>(console.log(data)))
+              .then((data)=>(console.log('data:', data)))
               .catch((err)=>(console.log('error:', err)));
             }
-          }>{this.props.facebookUserID}</Text>
+          }>{this.props.facebookUserID}</Text></View>
+          <View>
+            <Camera
+              ref={(cam) => {
+                this.camera = cam;
+              }}
+              style={styles.preview}
+              aspect={Camera.constants.Aspect.fill}>
+              <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[TAKE PIC + UPLOAD]</Text>
+            </Camera>
+          </View>
       </View>
     );
   }

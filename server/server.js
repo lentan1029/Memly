@@ -18,6 +18,23 @@ var helper = require('./helperFunctions.js');
 //------ instantiate app. connect middleware. -----//
 var app = express();
 
+app.use(function(req, res, next) {
+  if (req.query && req.query.lat && !req.query.latitude) {
+    req.query.latitude = req.query.lat;
+  }
+  if (req.query && req.query.lng && !req.query.longitude) {
+    req.query.longitude = req.query.lng;
+  }
+
+  if (req.body && req.body.lat && !req.body.latitude) {
+    req.body.latitude = req.body.lat;
+  }
+  if (req.body && req.body.lng && !req.body.longitude) {
+    req.body.longitude = req.body.lng;
+  }
+  next();
+});
+
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(morgan('dev'));
@@ -189,6 +206,27 @@ app.post('/user/edit/profileinfo/', helper.isLoggedIn, function(req, res) {
 
 /********************** MOBILE ENDPOINTS *************************/
 
+
+//image upload
+var multer = require('multer');
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, req.body.id + '-picture-' + Date.now());
+  }
+});
+var upload = multer({ storage: storage });
+
+app.post('/mobile/user/uploadImage', upload.single('picture'), function (req, res, next) {
+  // req.file is the `picture` file 
+  // req.body will hold the text fields, if there were any 
+  console.log('req.file is', req.file);
+  res.status(200).send(req.file);
+});
+
+//middleware to findorcreate mobile user=
 var createAndSaveNewMemly = require('../db/memly/utils').createAndSaveNewMemly;
 
 const findOrCreateMobileUserMiddleware = function(req, res, next) {

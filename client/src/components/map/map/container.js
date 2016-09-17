@@ -83,8 +83,8 @@ class MapContainer extends Component {
       console.log('Polling for nearby markers...');
       axios.get('/api/nearby', {
           params: {
-            lat: this.props.currentUserLocation.lat,
-            lng: this.props.currentUserLocation.lng
+            latitude: this.props.currentUserLocation.lat,
+            longitude: this.props.currentUserLocation.lng
           }
         })
         .then((response) => {
