@@ -6,18 +6,16 @@ import {StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Modal, Tex
 import {connect} from 'react-redux';
 import axios from 'axios';
 import MapView from 'react-native-maps';
-import Ionicons from 'react-native-vector-icons/Ionicons.js';
-import Camera from 'react-native-camera';
-
 import CustomMarker from './customMarker.js';
 import MemlyCallout from './memlyCallout.js';
+import Ionicons from 'react-native-vector-icons/Ionicons.js';
+import Camera from 'react-native-camera';
 
 import * as MapActions from '../../redux/mapReducer.js';
 import * as CurrentMemlyActions from '../../redux/currentMemlyReducer.js';
 import * as MemlysActions from '../../redux/memlysReducer.js';
 
-import { doUpload, sendMemly } from '../../helpers';
-
+import { doUpload, sendMemly, getNearby } from '../../helpers';
 let { width, height } = Dimensions.get('window');
 
 class MapComponent extends Component {
@@ -36,23 +34,36 @@ class MapComponent extends Component {
   }
   // Track the user's location when component is done rendering
   componentDidMount () {
-    
+    var context = this;
     navigator.geolocation.getCurrentPosition(
       (position) => {
         var startPosition = {longitude: position.longitude, latitude: position.latitude};
-        this.props.dispatch(MapActions.updateUserLocation(startPosition));
+        context.props.dispatch(MapActions.updateUserLocation(startPosition));
+        context.getMemlyInterval = setInterval(function() {
+          getNearby(context.props.currentUserLocation.latitude, context.props.currentUserLocation.longitude)
+          .then((data)=>{
+            context.props.dispatch(MemlysActions.updateMemlys(data));
+            console.log('memlys are', context.props.memlys);
+            // data.forEach((memly) => {
+            //   context.props.dispatch(MemlysActions.addMemly(memly));
+            // });
+          })
+          .catch((err)=>(console.log('error:', err)));
+        }, 5000);
       }, (error) => alert('We\'re truly sorry, but your geolocation seems to not be working correctly :(')
       // {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
-    this.watchID = navigator.geolocation.watchPosition(({coords}) => {
+    context.watchID = navigator.geolocation.watchPosition(({coords}) => {
       var lastPosition = {longitude: coords.longitude, latitude: coords.latitude};
-      this.props.dispatch(MapActions.updateUserLocation(lastPosition));
+      context.props.dispatch(MapActions.updateUserLocation(lastPosition));
+      console.log('location is:', context.currentUserLocation);
     });
   }
 
   // Stop tracking the user's location when the component is removed
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
+    clearTimeout(this.getMemlyInterval);
   }
 
   centerOnUser () {

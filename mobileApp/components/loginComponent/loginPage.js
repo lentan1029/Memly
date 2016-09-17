@@ -27,6 +27,7 @@ const {
   aspect={Camera.constants.Aspect.fill}>
 </Camera>*/
 
+
 class LoginPageContainer extends Component {
 
   render() {
@@ -75,14 +76,6 @@ class LoginPageContainer extends Component {
             }
           }
           onLogoutFinished={() => alert('logout.')}/>
-          <View><Text onPress={
-            () => {
-              // console.log('http://google.com');
-              getNearby(37.774929, -122.419416)
-              .then((data)=>(console.log('data:', data)))
-              .catch((err)=>(console.log('error:', err)));
-            }
-          }>{this.props.facebookUserID}</Text></View>
       </View>
     );
   }

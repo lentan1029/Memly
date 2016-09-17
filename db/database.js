@@ -69,18 +69,19 @@ module.exports = function(app) {
     // Find any within 0.05 +/- lat and lng of current user location
     // which should equate to ~1.15 miles diameter circle centered on user
 
-    var minLat = userLocation.latitude - 0.05;
-    var maxLat = userLocation.latitude + 0.05;
-    var minLng = userLocation.longitude - 0.05;
-    var maxLng = userLocation.longitude + 0.05;
+    var minLat = userLocation.latitude - 0.5;
+    var maxLat = userLocation.latitude + 0.5;
+    var minLng = userLocation.longitude - 0.5;
+    var maxLng = userLocation.longitude + 0.5;
 
     console.log(minLat, maxLat, minLng, maxLng);
     // Query database for any memlys that are within range
     // http://mongoosejs.com/docs/queries.html
-    Memly.find({
-      'location.latitude': { $gt: minLat, $lt: maxLat },
-      'location.longitude': { $gt: minLng, $lt: maxLng }
-    }, function(err, memlys) {
+    Memly.find().where('location.latitude').gt(minLat).lt(maxLat)
+    // .where('location.longitude').gt(minLng).lt(maxLng)
+      // 'location.latitude': { $gt: minLat, $lt: maxLat },
+      // 'location.longitude': { $gt: minLng, $lt: maxLng }
+    .exec(function(err, memlys) {
       if (err) {
         console.log(err);
         return;
