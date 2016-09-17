@@ -6,6 +6,8 @@ import {StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Modal, Tex
 import {connect} from 'react-redux';
 import axios from 'axios';
 import MapView from 'react-native-maps';
+import CustomMarker from './customMarker.js';
+import MemlyCallout from './memlyCallout.js';
 import Ionicons from 'react-native-vector-icons/Ionicons.js';
 import Camera from 'react-native-camera';
 
@@ -17,7 +19,9 @@ import * as CurrentMemlyActions from '../../redux/currentMemlyReducer.js';
 import * as MemlysActions from '../../redux/memlysReducer.js';
 
 import { doUpload, sendMemly } from '../../helpers';
+import axios from 'axios';
 
+import { doUpload, sendMemly, getNearby } from '../../helpers';
 let { width, height } = Dimensions.get('window');
 
 class MapComponent extends Component {
@@ -41,6 +45,18 @@ class MapComponent extends Component {
       (position) => {
         var startPosition = {longitude: position.longitude, latitude: position.latitude};
         this.props.dispatch(MapActions.updateUserLocation(startPosition));
+        var context = this;
+        this.getMemlyInterval = setInterval(function() {
+          getNearby(context.props.currentUserLocation.latitude, context.props.currentUserLocation.longitude)
+          .then((data)=>{
+            context.props.dispatch(MemlysActions.updateMemlys(data));
+            console.log('memlys are', context.props.memlys);
+            // data.forEach((memly) => {
+            //   context.props.dispatch(MemlysActions.addMemly(memly));
+            // });
+          })
+          .catch((err)=>(console.log('error:', err)));
+        }, 5000);
       }, (error) => alert('We\'re truly sorry, but your geolocation seems to not be working correctly :(')
       // {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
@@ -53,6 +69,7 @@ class MapComponent extends Component {
   // Stop tracking the user's location when the component is removed
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
+    clearTimeout(this.getMemlyInterval);
   }
 
   centerOnUser () {
