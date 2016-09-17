@@ -39,8 +39,8 @@ export default class ImageRetrieveContainer extends React.Component {
 
     axios.get('/api/nearby', {
       params: {
-        lat: this.state.location.lat,
-        lng: this.state.location.lng
+        latitude: this.state.location.lat,
+        longitude: this.state.location.lng
       }
     })
       .then(function(response) {
