@@ -2,10 +2,12 @@
 
 import React, { Component } from 'react';
 import Button from 'react-native-button';
-import {StyleSheet, Text, View, Image, TouchableOpacity, TextInput, ScrollView, DatePickerIOS, Picker} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity, TextInput, ScrollView, DatePickerIOS, Picker, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Actions} from 'react-native-router-flux';
 
+
+let { width, height } = Dimensions.get('window');
 
 // {
 //       location: {
@@ -98,11 +100,17 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   memlyContainer: {
+    top: 50
   },
   memlyImage: {
-    height: 400,
-    width: 400,
-    resizeMode: 'contain'
+    height:365,
+    width: width,
+    maxHeight: 365,
+    maxWidth: width,
+
+    resizeMode: 'contain',
+    justifyContent: 'center',
+    alignSelf: 'center'
   },
   memlyButtonContainer: {
 

@@ -41,7 +41,7 @@ const memlysInitialState = {
       defaultAnimation: 2,
       showInfo: false,
       media: {
-        url: '/Users/kunalrathi/Documents/greenfield/Memly/client/images/test-assets/hackreactor.jpg',
+        url: 'http://www.cooperindustries.com/content/dam/public/safety/notification/products/Mass%20Notification%20Systems/Spotlight/MNS_WideArea_Spotlight3.jpg',
         timestamp: new Date()
       }
     },

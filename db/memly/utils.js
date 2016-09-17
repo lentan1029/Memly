@@ -14,8 +14,8 @@ exports.createAndSaveNewMemly = function(req, res, mediaUrl) {
   newMemly.place = req.body.place;
   newMemly.visits = 1;
   newMemly.location = {
-    lat: req.body.lat,
-    lng: req.body.lng
+    latitude: req.body.latitude,
+    longitude: req.body.longitude
   };
   newMemly.save();
 };
