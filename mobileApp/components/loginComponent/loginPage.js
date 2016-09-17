@@ -64,6 +64,7 @@ class LoginPageContainer extends Component {
                             context.props.dispatch(updateFacebookUserID(found._id));
                             console.log('what are we dispatching to updateuserfacebook', found);
                             context.props.dispatch(updateUserFacebook(found));
+                            console.log('this is you', state);
                             // updateProfile
                           });
                         }
@@ -83,7 +84,7 @@ class LoginPageContainer extends Component {
 
 const mapStateToProps = function(state) {
   return {
-    ...state.loginReducer
+    ...state.loginReducer,
   };
 };
 

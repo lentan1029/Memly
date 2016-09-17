@@ -182,9 +182,8 @@ class MapComponent extends Component {
               </Camera>
               <TextInput 
                 placeholder = 'Comment'
-                onChangeText={this.makeComment.bind(this)} 
-                style={styles.input} 
-                multiline={true} /> 
+                onChangeText={this.makeComment.bind(this)}
+                style={styles.input}>
               <TextInput 
                 placeholder = 'Location' 
                 onChangeText={this.makeLocation.bind(this)} 
