@@ -18,6 +18,23 @@ var helper = require('./helperFunctions.js');
 //------ instantiate app. connect middleware. -----//
 var app = express();
 
+app.use(function(req, res, next) {
+  if (req.query && req.query.lat && !req.query.latitude) {
+    req.query.latitude = req.query.lat;
+  }
+  if (req.query && req.query.lng && !req.query.longitude) {
+    req.query.longitude = req.query.lng;
+  }
+
+  if (req.body && req.body.lat && !req.body.latitude) {
+    req.body.latitude = req.body.lat;
+  }
+  if (req.body && req.body.lng && !req.body.longitude) {
+    req.body.longitude = req.body.lng;
+  }
+  next();
+});
+
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(morgan('dev'));
