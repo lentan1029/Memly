@@ -11,24 +11,19 @@ let { width, height } = Dimensions.get('window');
 
 var SingleMemly = (props) => (
   <ScrollView>
-  <View style={styles.userInfo}>
-    <View style={styles.imageContainer}>
-      <Image source={{uri: props.memly.user.avatarUrl}} style={styles.image} />
-    </View>
-    <View style={styles.userContainer}>
-      <Text style = {styles.userNameText}> {props.memly.user.name}</Text>
-      <Text style = {styles.commentText}> {props.memly.comment}</Text>
-    </View>
-  </View>
     <View style={styles.memlyContainer}>
-      <Image source= {{uri: props.memly.media.url}} style = {styles.memlyImage} />
+      <View style={styles.imgContainer}>
+        <Image source= {{uri: props.memly.media.url}} style = {styles.memlyImage} />
+      </View>
       <Text style={styles.memlyPlace}>{props.memly.place}</Text>
+      <View style={styles.commentBox}>
+        <Text style = {styles.commentText}> {props.memly.comment}</Text>
+      </View>
       <View style={styles.memlyButtonContainer}>
-        <Button containerStyle = {styles.buttonContainer} style = {styles.button}>✓</Button>
-        <Button containerStyle = {styles.buttonContainer} style = {styles.button}>x</Button>
+        <Button containerStyle = {styles.buttonContainer} style = {styles.button}>👍</Button>
+        <Button containerStyle = {styles.buttonContainer} style = {styles.button}>👎</Button>
       </View>
     </View>
-
   </ScrollView>
 );
 
@@ -36,10 +31,10 @@ module.exports = SingleMemly;
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    padding: 10,
     height: 50,
     width: 100,
     overflow: 'hidden',
+    margin: 20,
     borderRadius: 50,
     backgroundColor:
     '#0288D1'
@@ -50,8 +45,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   button: {
-    fontSize: 50,
-    color: 'white'
+    fontSize: 25,
+    color: 'white',
+    margin: 10
   },
   buttonLocation: {
     justifyContent: 'center',
@@ -78,29 +74,37 @@ const styles = StyleSheet.create({
     fontSize: 25
   },
   commentText: {
-    marginTop: 10,
     fontStyle: 'italic',
   },
-
+  commentBox: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   memlyImage: {
-    height:height,
-    width: width,
-    maxHeight: height,
-    maxWidth: width,
-
-    resizeMode: 'contain',
+    height:height-200,
+    width: width-50,
+    resizeMode: 'cover',
+    borderRadius: 50,
     justifyContent: 'center',
     alignSelf: 'center'
+  },
+  imgContainer: {
+    borderRadius: 50,
   },
   memlyButtonContainer: {
     height: 70,
     width: width,
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'center',
+    alignItems: 'center'
+
   },
   memlyPlace: {
     fontSize: 28,
     alignSelf: 'center',
+  },
+  memlyContainer: {
+    marginTop: 20,
   }
 
 
