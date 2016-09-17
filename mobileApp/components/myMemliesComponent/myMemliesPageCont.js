@@ -9,6 +9,7 @@ import memlysReducer from '../../redux/memlysReducer.js';
 import MyStatusBar from '../common/myStatusBar.js';
 import TopNavigationBar from '../common/topNavBar.js';
 import DrawerMenu from '../common/drawerMenu.js';
+import MyMemlies from './myMemlies.js';
 
 class MyMemliesPageContainer extends Component {
   constructor (props) {
@@ -32,7 +33,7 @@ class MyMemliesPageContainer extends Component {
           <View style ={ styles.container2}>
             <TopNavigationBar showSideMenu={this.showSideMenu.bind(this)} />
             <View style={ styles.container1 }>
-              <Text> This is the memlies Page </Text>
+              <MyMemlies memlies={this.props.memlies}/>
             </View>
           </View>
       </SideMenu>
@@ -56,7 +57,7 @@ const mapStateToProps = function(state) {
   return {
     ...state,
 
-    buttonText: state.memlysReducer.buttonText
+    memlies: state.userReducer.user.memlys
   };
 };
 
