@@ -23,6 +23,22 @@ Url.prototype.href = function() {
   return res;
 };
 
+export const sendMemly = function(memly, mediaUrl) {
+  console.log('helpers sendmemly is being called', memly, mediaUrl);
+  var memly = {
+    ...memly,
+    mediaUrl: AWS_SERVER + mediaUrl
+  };
+  fetch(AWS_SERVER + '/mobile/user/createMemly', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(memly)
+  });
+};
+
 export const getNearby = function(latitude, longitude) {
   var url = new Url(AWS_SERVER + '/api/nearby');
   var params = {
@@ -57,7 +73,7 @@ export const updateFacebookInfo = function(res) {
   });
 };
 
-export const doUpload = function(filepath, facebookUserID) {
+export const doUpload = function(filepath, facebookUserID, cb) {
   console.log('filepath is', filepath);
   let files = [
     {
@@ -88,5 +104,6 @@ export const doUpload = function(filepath, facebookUserID) {
     console.log('upload complete with status ' + status);
     console.log('data received:', res.data);
     // console.log('data received:', json);
+    cb(res.data);
   });
 };

@@ -1,6 +1,7 @@
 var Memly = require('./model');
 
 exports.createAndSaveNewMemly = function(req, res, mediaUrl) {
+  console.log('createandsavenewmemly being called', req.body, mediaUrl);
   // Create new instance of Memly and save to database
   var newMemly = new Memly();
   newMemly.user.id = req.body && req.body.user ? req.body.user.userID : req.session.passport.user._id;

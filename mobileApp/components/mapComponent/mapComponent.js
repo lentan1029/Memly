@@ -16,8 +16,9 @@ import * as MemlysActions from '../../redux/memlysReducer.js';
 
 import axios from 'axios';
 
+import Camera from 'react-native-camera';
 
-
+import { doUpload, sendMemly } from '../../helpers';
 
 class MapComponent extends Component {
   constructor(props) {
@@ -63,7 +64,14 @@ class MapComponent extends Component {
     this.props.dispatch(CurrentMemlyActions.updateCurrentMemly(memly));
   }
 
-
+  takePicture(cb) {
+    this.camera.capture()
+      .then((data) => {
+        console.log('data.path is', data.path);
+        doUpload(data.path, this.props.facebookUserID, cb);
+      })
+      .catch(err => console.error(err));
+  }
 
   render() {
     var context = this;
@@ -100,17 +108,32 @@ class MapComponent extends Component {
           animationType={"slide"}
           transparent={false}
           visible={this.state.modalVisible}
-          onRequestClose={() => { alert("Modal has been closed."); } }
+          onRequestClose={() => { alert('Modal has been closed.'); } }
           >
          <View style={{marginTop: 22}}>
           <View style={{height: 600, width: 400, flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
             <Text style={styles.memlyHeader}>Memlify</Text>  
-            <TextInput style={styles.input}  placeholder = 'Title'/>
-            <Image style={{height: 300, width: 300}}/> 
+            <TextInput style={styles.input} placeholder = 'Title'/>
+            <Camera ref={(cam) => {
+              this.camera = cam;
+            }}
+            style={styles.cameraView} aspect={Camera.constants.Aspect.fill}></Camera>
             <TextInput style={styles.input} multiline={true} placeholder = 'Comment'/> 
             <TextInput placeholder = 'Location' style={styles.input} /> 
             <Button containerStyle = {styles.modalButtonContainer} style={styles.modalButton} onPress={() => {
+              var context = this;
               this.setModalVisible(!this.state.modalVisible);
+              this.takePicture( (fileData) => {
+                console.log('sendmemlyisbeingcalled');
+                sendMemly({ //user, comment, place, latitude, longitude //user has: userID, username, profilePhotoUrl
+                  user: context.props.user,
+                  id: context.props.user._id,
+                  comment: 'some comment',
+                  place: 'a place',
+                  latitude: context.props.currentUserLocation.latitude,
+                  longitude: context.props.currentUserLocation.longitude
+                }, JSON.parse(fileData).path);
+              });
             }}> Take a Photo
             </Button>
             <Button containerStyle = {styles.modalButtonContainer} style={styles.modalButton} onPress={() => {
@@ -137,6 +160,11 @@ class MapComponent extends Component {
 }
 
 const styles = StyleSheet.create({
+  cameraView: {
+    height: 500,
+    width: 500,
+    justifyContent: 'center'
+  },
   container: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
@@ -243,7 +271,9 @@ const mapStateToProps = function(state) {
   return {
     currentUserLocation: state.mapReducer.currentUserLocation,
     memlys: state.memlysReducer.memlys,
-    currentMemly: state.currentMemlyReducer.currentMemly
+    currentMemly: state.currentMemlyReducer.currentMemly,
+    facebookUserID: state.loginReducer.facebookUserID,
+    user: state.userReducer.user
   };
 };
 export default connect(mapStateToProps)(MapComponent);
