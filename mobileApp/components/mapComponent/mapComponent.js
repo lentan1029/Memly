@@ -18,7 +18,7 @@ import axios from 'axios';
 
 import Camera from 'react-native-camera';
 
-import { doUpload } from '../../helpers';
+import { doUpload, sendMemly } from '../../helpers';
 
 class MapComponent extends Component {
   constructor(props) {
@@ -64,11 +64,11 @@ class MapComponent extends Component {
     this.props.dispatch(CurrentMemlyActions.updateCurrentMemly(memly));
   }
 
-  takePicture() {
+  takePicture(cb) {
     this.camera.capture()
       .then((data) => {
         console.log('data.path is', data.path);
-        doUpload(data.path, this.props.facebookUserID);
+        doUpload(data.path, this.props.facebookUserID, cb);
       })
       .catch(err => console.error(err));
   }
@@ -121,8 +121,19 @@ class MapComponent extends Component {
             <TextInput style={styles.input} multiline={true} placeholder = 'Comment'/> 
             <TextInput placeholder = 'Location' style={styles.input} /> 
             <Button containerStyle = {styles.modalButtonContainer} style={styles.modalButton} onPress={() => {
+              var context = this;
               this.setModalVisible(!this.state.modalVisible);
-              this.takePicture();
+              this.takePicture( (fileData) => {
+                console.log('sendmemlyisbeingcalled');
+                sendMemly({ //user, comment, place, latitude, longitude //user has: userID, username, profilePhotoUrl
+                  user: context.props.user,
+                  id: context.props.user._id,
+                  comment: 'some comment',
+                  place: 'a place',
+                  latitude: context.props.currentUserLocation.latitude,
+                  longitude: context.props.currentUserLocation.longitude
+                }, JSON.parse(fileData).path);
+              });
             }}> Take a Photo
             </Button>
             <Button containerStyle = {styles.modalButtonContainer} style={styles.modalButton} onPress={() => {
@@ -261,7 +272,8 @@ const mapStateToProps = function(state) {
     currentUserLocation: state.mapReducer.currentUserLocation,
     memlys: state.memlysReducer.memlys,
     currentMemly: state.currentMemlyReducer.currentMemly,
-    facebookUserID: state.loginReducer.facebookUserID
+    facebookUserID: state.loginReducer.facebookUserID,
+    user: state.userReducer.user
   };
 };
 export default connect(mapStateToProps)(MapComponent);

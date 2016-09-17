@@ -230,6 +230,7 @@ app.post('/mobile/user/uploadImage', upload.single('picture'), function (req, re
 var createAndSaveNewMemly = require('../db/memly/utils').createAndSaveNewMemly;
 
 const findOrCreateMobileUserMiddleware = function(req, res, next) {
+  console.log('HERE IN MIDDLEWARE', req.body.id);
   var userID = req.body.id;
   if (!userID) {
     res.status(200).send('no facebook user provided');
@@ -343,14 +344,18 @@ app.post('/mobile/user/edit/profileinfo/',
 app.post('/mobile/user/createMemly', 
   findOrCreateMobileUserMiddleware,
   function(req, res) {
-    var mediaUrl = 'https://developer.chrome.com/extensions/examples/api/idle/idle_simple/sample-128.png';
+    console.log('memlycreateendpoint being called', req.body);
+    var mediaUrl = req.body.mediaUrl;
+    // delete req.body.mediaUrl;
     createAndSaveNewMemly(req, res, mediaUrl); //include user object in the res
   }
 );
 
+// var middlemiddleware = function(req, res, next) { console.log('CALLEEEDD'); next(); };
 
-
-
+var path = require('path');
+// console.log(__dirname);
+app.use('/uploads', express.static( path.join(__dirname, '../uploads')));
 
 //Log out of session
 app.get('/logout', function(req, res) {
