@@ -183,7 +183,7 @@ class MapComponent extends Component {
               <TextInput 
                 placeholder = 'Comment'
                 onChangeText={this.makeComment.bind(this)}
-                style={styles.input}>
+                style={styles.input} />
               <TextInput 
                 placeholder = 'Location' 
                 onChangeText={this.makeLocation.bind(this)} 
