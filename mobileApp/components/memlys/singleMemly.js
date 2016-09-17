@@ -43,8 +43,8 @@ var SingleMemly = (props) => {
     <View style={styles.memlyContainer}>
       <Image source= {{uri: props.memly.media.url}} style = {styles.memlyImage} />
       <View style={styles.memlyButtonContainer}>
-        <Button>Like </Button>
-        <Button>Dislike </Button>
+        <Button></Button>
+        <Button></Button>
       </View>
       <Text style = {styles.memlyPlace}> {props.memly.place} </Text>
     </View>
