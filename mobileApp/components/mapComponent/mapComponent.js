@@ -10,6 +10,8 @@ import CustomMarker from './customMarker.js';
 import MemlyCallout from './memlyCallout.js';
 import Ionicons from 'react-native-vector-icons/Ionicons.js';
 
+import Camera from 'react-native-camera';
+
 import * as MapActions from '../../redux/mapReducer.js';
 import * as CurrentMemlyActions from '../../redux/currentMemlyReducer.js';
 import * as MemlysActions from '../../redux/memlysReducer.js';
@@ -73,8 +75,11 @@ class MapComponent extends Component {
       .catch(err => console.error(err));
   }
 
+
   render() {
     var context = this;
+    
+
     return (
       <View style={styles.container}>
         <MapView
@@ -118,6 +123,7 @@ class MapComponent extends Component {
               this.camera = cam;
             }}
             style={styles.cameraView} aspect={Camera.constants.Aspect.fill}></Camera>
+
             <TextInput style={styles.input} multiline={true} placeholder = 'Comment'/> 
             <TextInput placeholder = 'Location' style={styles.input} /> 
             <Button containerStyle = {styles.modalButtonContainer} style={styles.modalButton} onPress={() => {

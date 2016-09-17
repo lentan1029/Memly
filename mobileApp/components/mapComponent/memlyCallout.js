@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 100,
     height: 100,
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
 
   }
 });
