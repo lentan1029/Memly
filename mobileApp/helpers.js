@@ -86,7 +86,7 @@ export const populateFacebookInfo = function(res) {
   })
   .then((res) => (res.json()))
   .then((found) => {
-    console.log(found);
+    console.log('WHAT IS BEING FOUND', found);
     return found;
   });
 };
