@@ -12,15 +12,6 @@ export default class MemlyCallout extends Component {
     };
   }
 
-  componentWillMount() {
-
-  }
-
-  _handlePress() {
-    alert('what');
-  }
-
-
   render() {
     var context = this;
     var _handlingPress = function() {

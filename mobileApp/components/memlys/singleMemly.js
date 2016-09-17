@@ -9,29 +9,7 @@ import {Actions} from 'react-native-router-flux';
 
 let { width, height } = Dimensions.get('window');
 
-// {
-//       location: {
-//         latitude: 37.7836966,
-//         longitude: -122.4089664
-//       },
-//       user: {
-//         name: 'Mike Wong',
-//         avatarUrl: 'http://www.menshairstyles.net/d/76238-2/Young+Asian+man+hairstyles.PNG'
-//       },
-//       place: 'Hack Reactor',
-//       comment: 'Hey guys!',
-//       key: 'Hack Reactor',
-//       defaultAnimation: 2,
-//       showInfo: false,
-//       media: {
-//         url: '../../images/test-assets/hackreactor.jpg',
-//         timestamp: new Date()
-//       }
-//     }
-
-var SingleMemly = (props) => {
-  alert(JSON.stringify(props));
-  return (
+var SingleMemly = (props) => (
   <ScrollView>
     <View style={styles.imageContainer}>
       <Image source={{uri: props.memly.user.avatarUrl}} style={styles.image} />
@@ -51,7 +29,6 @@ var SingleMemly = (props) => {
 
   </ScrollView>
 );
-};
 
 module.exports = SingleMemly;
 

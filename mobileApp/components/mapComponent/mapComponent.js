@@ -88,7 +88,17 @@ class MapComponent extends Component {
   makeLocation(text) {
     this.setState({place: text});
   }
-
+  createAndSendMemly(fileData) {
+    sendMemly({ //user, comment, place, latitude, longitude //user has: userID, username, profilePhotoUrl
+      user: context.props.user,
+      id: context.props.user._id,
+      comment: context.state.comment,
+      place: context.state.place,
+      latitude: context.props.currentUserLocation.latitude,
+      longitude: context.props.currentUserLocation.longitude
+    }, JSON.parse(fileData).path);
+  }
+                    
   render() {
     var context = this;
     
@@ -108,65 +118,88 @@ class MapComponent extends Component {
               coordinate={memly.location}
               calloutOffset= {{ x: -10, y: 0 }}
             >
-              <MapView.Callout style = {{height: 100, width: 100, borderRadius: 50}} tooltip>
-                  <MemlyCallout _handlingPress = {context._handlingPress.bind(context)} memly = {memly}/>
+              <MapView.Callout 
+                style = {{height: 100, width: 100, borderRadius: 50}} 
+                tooltip>
+                  <MemlyCallout 
+                    _handlingPress = {context._handlingPress.bind(context)} 
+                    memly = {memly}/>
               </MapView.Callout>
             </MapView.Marker>
 
           )}
         </MapView>
-        <TouchableOpacity style={ styles.button } onPress={ this.centerOnUser.bind(this) }>
-          <Ionicons name="md-locate" size={28} color="#0972e3" />
+        <TouchableOpacity 
+            style={ styles.button } 
+            onPress={ this.centerOnUser.bind(this) }>
+          <Ionicons 
+            name="md-locate" 
+            size={28} 
+            color="#0972e3" />
         </TouchableOpacity>
-        <View style={{marginTop: 22}}>
-        
+        <View>
+          <Modal
+            animationType={"slide"}
+            transparent={false}
+            visible={this.state.modalVisible}>
+           <View 
+            style={{marginTop: 22}}>
+            <View 
+              style={styles.modalContainer}>
+              <View 
+                style={styles.modalHeaderContainer}>
+                <Text 
+                  style= {styles.memlyHeader}>
+                  Memlify
+                </Text>  
+              </View>
+              <Camera 
+                ref={(cam) => {
+                  this.camera = cam;
+                }}
+                style={styles.cameraView} 
+                aspect={Camera.constants.Aspect.fill}>
+              </Camera>
+              <TextInput 
+                placeholder = 'Comment'
+                onChangeText={this.makeComment.bind(this)} 
+                style={styles.input} 
+                multiline={true} /> 
+              <TextInput 
+                placeholder = 'Location' 
+                onChangeText={this.makeLocation.bind(this)} 
+                style={styles.input} />
+              <View style={styles.buttonHolder}>
+                <Button 
+                  style={styles.modalButton} 
+                  containerStyle = {styles.modalButtonContainer} 
+                  onPress={() => {
+                    var context = this;
+                    this.setModalVisible(!this.state.modalVisible);
+                    this.takePicture(this.createAndSendMemly);
+                  }}> 
+                  Take a Photo
+                </Button>
+                <Button 
+                  containerStyle = {styles.modalButtonContainer} 
+                  style={styles.modalButton} 
+                  onPress={() => {
+                    this.setModalVisible(!this.state.modalVisible);
+                  }}>Cancel
+                </Button>
+              </View>
+              </View>
+            </View>
+          </Modal>
 
-        <Modal
-          animationType={"slide"}
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => { alert('Modal has been closed.'); } }
-          >
-         <View style={{marginTop: 22}}>
-          <View style={{height: height-22, width: width, flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'space-around'}}>
-            <View style={{justifyContent: 'center', alignItems:'center', width: width}}>
-              <Text style= {styles.memlyHeader}>Memlify</Text>  
-            </View>
-            <Camera ref={(cam) => {
-              this.camera = cam;
-            }}
-            style={styles.cameraView} aspect={Camera.constants.Aspect.fill}></Camera>
-            <TextInput onChangeText={this.makeComment.bind(this)} style={styles.input} multiline={true} placeholder = 'Comment'/> 
-            <TextInput placeholder = 'Location' onChangeText={this.makeLocation.bind(this)} style={styles.input} />
-            <View style={styles.buttonHolder}>
-              <Button containerStyle = {styles.modalButtonContainer} style={styles.modalButton} onPress={() => {
-                var context = this;
-                this.setModalVisible(!this.state.modalVisible);
-                this.takePicture( (fileData) => {
-                  sendMemly({ //user, comment, place, latitude, longitude //user has: userID, username, profilePhotoUrl
-                    user: context.props.user,
-                    id: context.props.user._id,
-                    comment: context.state.comment,
-                    place: context.state.place,
-                    latitude: context.props.currentUserLocation.latitude,
-                    longitude: context.props.currentUserLocation.longitude
-                  }, JSON.parse(fileData).path);
-                });
-              }}> Take a Photo
-              </Button>
-              <Button containerStyle = {styles.modalButtonContainer} style={styles.modalButton} onPress={() => {
-                this.setModalVisible(!this.state.modalVisible);
-              }}>Cancel
-              </Button>
-            </View>
-            </View>
-          </View>
-        </Modal>
-
-        <TouchableOpacity activeOpacity = {0.5} style = {styles.modalButton, {bottom: 20}} onPress={() => {
-          this.setModalVisible(true);
-        }}>
-          <View style={styles.modalButtonText}>
+        <TouchableOpacity 
+          activeOpacity = {0.5} 
+          style = {styles.modalButton, {bottom: 20}} 
+          onPress={() => {
+            this.setModalVisible(true);
+          }}>
+          <View 
+            style={styles.modalButtonText}>
             <Text >
               Memlify
             </Text>
@@ -288,6 +321,18 @@ const styles = StyleSheet.create({
     width: width,
     flexDirection: 'row',
     justifyContent: 'space-around'
+  },
+  modalContainer: {
+    height: height-22,
+    width: width,
+    flexDirection: 'column', 
+    alignItems: 'flex-start', 
+    justifyContent: 'space-around'
+  },
+  modalHeaderContainer: {
+    justifyContent: 'center',
+    alignItems:'center',
+    width: width
   }
 });
 
