@@ -33,7 +33,7 @@ class EditProfilePageContainer extends Component {
           <View style ={ styles.container2}>
             <TopNavigationBar showSideMenu={this.showSideMenu.bind(this)} />
             <View style={ styles.container1 }>
-              <EditProfile hideSideMenu= {this.hideSideMenu.bind(this)} firstName= {this.props.firstName} lastName={this.props.lastName} email={this.props.email} gender={this.props.gender} birthday={this.props.birthday} picture={this.props.picture} />
+              <EditProfile hideSideMenu= {this.hideSideMenu.bind(this)} name= {this.props.name} bio={this.props.bio} email={this.props.email} gender={this.props.gender} birthday={this.props.birthday} picture={this.props.picture} />
             </View>
           </View>
       </SideMenu>
@@ -55,12 +55,12 @@ const mapStateToProps = function(state) {
   return {
     ...state,
 
-    // firstName: state.loginReducer.first_name,
-    // lastName: state.loginReducer.last_name,
-    // email: state.loginReducer.email,
-    // gender: state.loginReducer.gender,
-    // birthday: state.loginReducer.birthday,
-    // picture: state.loginReducer.picture.data.url
+    name: state.userReducer.user.name,
+    email: state.userReducer.user.email,
+    gender: state.userReducer.user.gender,
+    birthday: state.userReducer.user.birthday,
+    picture: state.userReducer.user.profilePhotoUrl,
+    bio: state.userReducer.user.bio
   };
 };
 

@@ -164,7 +164,7 @@ export default function userReducer (state = userInitialState, action) {
   case 'UPDATE_USER_FACEBOOK' : {
     return {
       ...state,
-      userFacebook: action.userFacebook,
+      user: action.userFacebook,
     };
   }
 
