@@ -104,7 +104,7 @@ export const doUpload = function(filepath, facebookUserID, cb) {
   ];
 
   let opts = {
-    url: 'http://localhost:3000/mobile/user/uploadImage',
+    url: AWS_SERVER + '/mobile/user/uploadImage',
     files: files, 
     method: 'POST',
     params: { 'id': facebookUserID },
