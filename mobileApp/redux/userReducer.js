@@ -30,6 +30,13 @@ export function fetchUserSuccess (user) {
   };
 }
 
+export function updateUserMemlies (mediaUrl) {
+  return {
+    type: 'UPDATE_USER_MEMLIES',
+    mediaUrl,
+  };
+}
+
 export function updateUserLocation (userLocation) {
   return {
     type: 'UPDATE_USER_LOCATION',
@@ -98,7 +105,12 @@ const userInitialState = {
 // ------------ USER REDUCER -----------------//
 export default function userReducer (state = userInitialState, action) {
   switch (action.type) {
-   
+  case 'UPDATE_USER_MEMLIES' : 
+    return {
+      ...state,
+      user: {...state.user, memlys: [action.mediaUrl, ...state.user.memlys] } 
+    };
+    
   case 'USER_AUTH' :  
     return {
       ...state, 

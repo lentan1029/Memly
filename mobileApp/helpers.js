@@ -29,6 +29,7 @@ export const sendMemly = function(memly, mediaUrl) {
     ...memly,
     mediaUrl: AWS_SERVER + '/' + mediaUrl
   };
+  this.props.dispatch(userReducer.updateUserMemlies(memly.mediaUrl));
   fetch(AWS_SERVER + '/mobile/user/createMemly', {
     method: 'POST',
     headers: {
