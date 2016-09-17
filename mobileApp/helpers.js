@@ -27,7 +27,7 @@ export const sendMemly = function(memly, mediaUrl) {
   console.log('helpers sendmemly is being called', memly, mediaUrl);
   var memly = {
     ...memly,
-    mediaUrl: AWS_SERVER + mediaUrl
+    mediaUrl: AWS_SERVER + '/' + mediaUrl
   };
   fetch(AWS_SERVER + '/mobile/user/createMemly', {
     method: 'POST',

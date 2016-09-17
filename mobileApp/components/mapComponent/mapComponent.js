@@ -90,12 +90,12 @@ class MapComponent extends Component {
   }
   createAndSendMemly(fileData) {
     sendMemly({ //user, comment, place, latitude, longitude //user has: userID, username, profilePhotoUrl
-      user: context.props.user,
-      id: context.props.user._id,
-      comment: context.state.comment,
-      place: context.state.place,
-      latitude: context.props.currentUserLocation.latitude,
-      longitude: context.props.currentUserLocation.longitude
+      user: this.props.user,
+      id: this.props.user._id,
+      comment: this.state.comment,
+      place: this.state.place,
+      latitude: this.props.currentUserLocation.latitude,
+      longitude: this.props.currentUserLocation.longitude
     }, JSON.parse(fileData).path);
   }
                     
@@ -176,7 +176,7 @@ class MapComponent extends Component {
                   onPress={() => {
                     var context = this;
                     this.setModalVisible(!this.state.modalVisible);
-                    this.takePicture(this.createAndSendMemly);
+                    this.takePicture(this.createAndSendMemly.bind(this));
                   }}> 
                   Take a Photo
                 </Button>
