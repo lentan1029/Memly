@@ -82,7 +82,6 @@ class LoginPageContainer extends Component {
 }
 
 const mapStateToProps = function(state) {
-  console.log('state:', state);
   return {
     ...state.loginReducer
   };

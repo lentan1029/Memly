@@ -9,30 +9,9 @@ import {Actions} from 'react-native-router-flux';
 
 let { width, height } = Dimensions.get('window');
 
-// {
-//       location: {
-//         latitude: 37.7836966,
-//         longitude: -122.4089664
-//       },
-//       user: {
-//         name: 'Mike Wong',
-//         avatarUrl: 'http://www.menshairstyles.net/d/76238-2/Young+Asian+man+hairstyles.PNG'
-//       },
-//       place: 'Hack Reactor',
-//       comment: 'Hey guys!',
-//       key: 'Hack Reactor',
-//       defaultAnimation: 2,
-//       showInfo: false,
-//       media: {
-//         url: '../../images/test-assets/hackreactor.jpg',
-//         timestamp: new Date()
-//       }
-//     }
-
-var SingleMemly = (props) => {
-  alert(JSON.stringify(props));
-  return (
+var SingleMemly = (props) => (
   <ScrollView>
+  <View style={styles.userInfo}>
     <View style={styles.imageContainer}>
       <Image source={{uri: props.memly.user.avatarUrl}} style={styles.image} />
     </View>
@@ -40,33 +19,38 @@ var SingleMemly = (props) => {
       <Text style = {styles.userNameText}> {props.memly.user.name}</Text>
       <Text style = {styles.commentText}> {props.memly.comment}</Text>
     </View>
+  </View>
     <View style={styles.memlyContainer}>
       <Image source= {{uri: props.memly.media.url}} style = {styles.memlyImage} />
+      <Text style={styles.memlyPlace}>{props.memly.place}</Text>
       <View style={styles.memlyButtonContainer}>
-        <Button></Button>
-        <Button></Button>
+        <Button containerStyle = {styles.buttonContainer} style = {styles.button}>✓</Button>
+        <Button containerStyle = {styles.buttonContainer} style = {styles.button}>x</Button>
       </View>
-      <Text style = {styles.memlyPlace}> {props.memly.place} </Text>
     </View>
 
   </ScrollView>
 );
-};
 
 module.exports = SingleMemly;
 
 const styles = StyleSheet.create({
   buttonContainer: {
     padding: 10,
-    height: 45,
-    width: 150,
+    height: 50,
+    width: 100,
     overflow: 'hidden',
-    borderRadius: 4,
+    borderRadius: 50,
     backgroundColor:
     '#0288D1'
   },
+  userInfo: {
+    flexDirection: 'row',
+    marginTop: 40,
+    justifyContent: 'space-around'
+  },
   button: {
-    fontSize: 20,
+    fontSize: 50,
     color: 'white'
   },
   buttonLocation: {
@@ -82,13 +66,11 @@ const styles = StyleSheet.create({
     borderWidth: 5,
   },
   imageContainer: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
     marginLeft: 20,
-    justifyContent: 'flex-start',
-    marginTop: 20
+    justifyContent: 'center',
   },
   userContainer: {
-    marginTop: -90,
     justifyContent: 'center',
     marginLeft: 140,
   },
@@ -99,13 +81,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontStyle: 'italic',
   },
-  memlyContainer: {
-    top: 50
-  },
+
   memlyImage: {
-    height:365,
+    height:height,
     width: width,
-    maxHeight: 365,
+    maxHeight: height,
     maxWidth: width,
 
     resizeMode: 'contain',
@@ -113,7 +93,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   memlyButtonContainer: {
-
+    height: 70,
+    width: width,
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   },
   memlyPlace: {
     fontSize: 28,

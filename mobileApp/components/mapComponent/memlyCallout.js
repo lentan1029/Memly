@@ -8,18 +8,10 @@ export default class MemlyCallout extends Component {
     super(props);
     this.state = {
       w: 100,
-      h: 100
+      h: 100,
+      memly: props.memly
     };
   }
-
-  componentWillMount() {
-
-  }
-
-  _handlePress() {
-    alert('what');
-  }
-
 
   render() {
     var context = this;
@@ -27,13 +19,13 @@ export default class MemlyCallout extends Component {
       context.props._handlingPress(context.props.memly);
       Actions.SingleMemlyPage();
     };
-
+    console.log(this.props.memly.media.url);
     return (
 
       <TouchableHighlight style = {{height: 100, width: 100}} underlayColor="transparent" onPress = {_handlingPress}>
         <View style={styles.container}>
           <Image 
-            source={{uri: this.props.memly.media.url}}
+            source={{uri: this.state.memly.media.url}}
             style={{borderRadius: 50, alignSelf: 'center', opacity: 1, resizeMode: 'cover', width: this.state.w - 3, height: this.state.h - 3}} />
         </View>
       </TouchableHighlight>
